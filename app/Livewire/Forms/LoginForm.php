@@ -38,6 +38,14 @@ class LoginForm extends Form
             ]);
         }
 
+        if (Auth::user()->role !== 'admin') {
+            Auth::guard('web')->logout();
+
+            throw ValidationException::withMessages([
+                'form.email' => 'Akses ditolak. Hanya akun Admin yang diizinkan masuk ke sistem.',
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 
