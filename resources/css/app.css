@@ -1,3 +1,17 @@
 @import 'tailwindcss';
 @import '../../vendor/livewire/flux/dist/flux.css';
 @custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-flash-gold: #F5B800;
+  --color-flash-gold-hover: #D9A300;
+  --color-flash-light: #F8FAFC;
+  --color-flash-card: #FFFFFF;
+  --color-flash-border: #E2E8F0;
+  --color-flash-text: #0F172A;
+}
+
+::selection {
+  background-color: #F5B800;
+  color: #0F172A;
+}

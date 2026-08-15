@@ -12,61 +12,57 @@ new class extends Component {
     }
 }; ?>
 
-<div class="bg-gray-900 text-white min-h-screen">
+<div class="bg-[#F8FAFC] dark:bg-[#0B0F17] text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
     <x-slot name="title">Layanan & Paket Harga Pembuatan Website - FlashDev</x-slot>
     <x-slot name="description">Jelajahi paket pembuatan website perusahaan, e-commerce, custom SaaS, serta optimasi performa web dari FlashDev.</x-slot>
     <!-- Header Banner -->
-    <section class="py-20 border-b border-gray-800 bg-gray-950/60">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-            <span class="px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold uppercase tracking-wider">
+    <section class="py-20 border-b border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-[#080C13] text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl space-y-4">
+            <span class="px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-400 text-xs font-bold uppercase tracking-wider">
                 Layanan & Paket Agensi
             </span>
-            <h1 class="text-4xl sm:text-5xl font-extrabold mt-4 mb-4">
+            <h1 class="text-4xl sm:text-5xl font-extrabold mt-4 mb-4 text-slate-900 dark:text-white">
                 Solusi Pembuatan Software & Website Professional
             </h1>
-            <p class="text-gray-400 text-lg">
+            <p class="text-slate-600 dark:text-gray-400 text-lg">
                 Kami menyediakan ekosistem pengembangan software lengkap yang disesuaikan dengan skala dan tujuan bisnis Anda.
             </p>
         </div>
     </section>
 
     <!-- Services Detailed List -->
-    <section class="py-20 border-b border-gray-800">
+    <section class="py-20 border-b border-slate-200/80 dark:border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
             @foreach ($services as $index => $service)
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-gray-800/40 p-8 sm:p-12 rounded-3xl border border-gray-700/50">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white dark:bg-[#131A26] p-8 sm:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-amber-400 dark:hover:border-amber-500/30 hover:shadow-md transition-all duration-300">
                     <div class="lg:col-span-7 space-y-4">
-                        <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 text-xl font-bold">
+                        <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30 text-xl font-extrabold">
                             0{{ $index + 1 }}
                         </div>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white">{{ $service->title }}</h2>
-                        <p class="text-indigo-300 font-medium text-sm">{{ $service->short_description }}</p>
-                        <p class="text-gray-300 text-sm leading-relaxed">{{ $service->description }}</p>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">{{ $service->title }}</h2>
+                        <p class="text-amber-700 dark:text-amber-400/90 font-semibold text-sm">{{ $service->short_description }}</p>
+                        <p class="text-slate-600 dark:text-gray-300 text-sm leading-relaxed">{{ $service->description }}</p>
                         <div class="pt-4">
-                            <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center text-sm font-semibold text-indigo-400 hover:text-indigo-300">
+                            <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center text-sm font-extrabold text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300">
                                 Konsultasikan Layanan Ini
                                 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </a>
                         </div>
                     </div>
-                    <div class="lg:col-span-5 bg-gray-900/80 p-6 rounded-2xl border border-gray-700/60 space-y-3">
-                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Apa Yang Anda Dapatkan:</h4>
-                        <ul class="space-y-2.5 text-xs sm:text-sm text-gray-300">
+                    <div class="lg:col-span-5 bg-[#F8FAFC] dark:bg-[#0B0F17] p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-3">
+                        <h4 class="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-widest">Apa Yang Anda Dapatkan:</h4>
+                        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700 dark:text-gray-300">
                             <li class="flex items-center space-x-2">
-                                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                 <span>Desain kustom & 100% Responsif di Smartphone</span>
                             </li>
                             <li class="flex items-center space-x-2">
-                                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                <span>Optimasi Kecepatan Load & SEO On-Page</span>
+                                <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>Optimasi Kecepatan & SEO Dasar</span>
                             </li>
                             <li class="flex items-center space-x-2">
-                                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                <span>Kode Bersih, Aman, & Mudah Di-maintenance</span>
-                            </li>
-                            <li class="flex items-center space-x-2">
-                                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                <span>Garansi Perbaikan Bug & Dukungan 3 Bulan</span>
+                                <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>Garansi Maintenance & Support Teknis</span>
                             </li>
                         </ul>
                     </div>
@@ -75,75 +71,14 @@ new class extends Component {
         </div>
     </section>
 
-    <!-- Transparent Pricing Package Tiers -->
-    <section class="py-20 border-b border-gray-800 bg-gray-950/40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
-                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest">Paket Estimasi</h2>
-                <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Paket Harga Pembuatan Website</h3>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Starter Tier -->
-                <div class="bg-gray-800/60 rounded-3xl p-8 border border-gray-700/60 flex flex-col justify-between space-y-8">
-                    <div class="space-y-4">
-                        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Landing Page / Profile</span>
-                        <h4 class="text-2xl font-bold text-white">Starter Web</h4>
-                        <div class="text-3xl font-extrabold text-white">Rp 3.500.000<span class="text-xs text-gray-400 font-normal"> / proyek</span></div>
-                        <p class="text-xs text-gray-400">Cocok untuk UMKM & profesional yang membutuhkan company profile responsif cepat rilis.</p>
-                        <ul class="space-y-3 pt-4 text-xs text-gray-300">
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Hingga 5 Halaman</li>
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Desain Modern & Responsif</li>
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Integrasi Form Kontak WA</li>
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> SEO Basic & Speed Tuning</li>
-                        </ul>
-                    </div>
-                    <a href="{{ route('contact') }}" wire:navigate class="w-full py-3 rounded-xl bg-gray-700 hover:bg-gray-600 text-center font-bold text-sm text-white transition-colors">
-                        Pilih Paket Starter
-                    </a>
-                </div>
-
-                <!-- Business Tier (Featured) -->
-                <div class="bg-gradient-to-b from-indigo-900/60 to-gray-800/80 rounded-3xl p-8 border-2 border-indigo-500 relative flex flex-col justify-between space-y-8 shadow-2xl">
-                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-indigo-500 text-white text-xs font-bold rounded-full uppercase tracking-wider">
-                        Paling Populer
-                    </div>
-                    <div class="space-y-4 pt-2">
-                        <span class="text-xs font-bold text-indigo-300 uppercase tracking-wider">E-Commerce & Dynamic Web</span>
-                        <h4 class="text-2xl font-bold text-white">Business Store</h4>
-                        <div class="text-3xl font-extrabold text-white">Rp 7.500.000<span class="text-xs text-indigo-200 font-normal"> / proyek</span></div>
-                        <p class="text-xs text-indigo-200">Solusi toko online lengkap dengan manajemen produk, inventaris, & Payment Gateway.</p>
-                        <ul class="space-y-3 pt-4 text-xs text-gray-200">
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Katalog Produk Tanpa Batas</li>
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Payment Gateway (QRIS, VA, CC)</li>
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Hitung Ongkir Otomatis</li>
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Dashboard Admin Pengelolaan</li>
-                        </ul>
-                    </div>
-                    <a href="{{ route('contact') }}" wire:navigate class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-center font-bold text-sm text-white shadow-lg transition-all duration-300">
-                        Pilih Paket Business
-                    </a>
-                </div>
-
-                <!-- Custom Enterprise Tier -->
-                <div class="bg-gray-800/60 rounded-3xl p-8 border border-gray-700/60 flex flex-col justify-between space-y-8">
-                    <div class="space-y-4">
-                        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Custom SaaS / Enterprise</span>
-                        <h4 class="text-2xl font-bold text-white">Custom Web App</h4>
-                        <div class="text-3xl font-extrabold text-white">Custom Rate</div>
-                        <p class="text-xs text-gray-400">Pengembangan aplikasi web berbasis spesifikasi kompleks (ERP, CRM, LMS, HRIS).</p>
-                        <ul class="space-y-3 pt-4 text-xs text-gray-300">
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Spesifikasi & Arsitektur Custom</li>
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Integrasi Rest API & Third-party</li>
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Multi-role Permission & Security</li>
-                            <li class="flex items-center"><svg class="w-4 h-4 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> SLA Maintenance & Backup Routine</li>
-                        </ul>
-                    </div>
-                    <a href="{{ route('contact') }}" wire:navigate class="w-full py-3 rounded-xl bg-gray-700 hover:bg-gray-600 text-center font-bold text-sm text-white transition-colors">
-                        Konsultasi Enterprise
-                    </a>
-                </div>
-            </div>
+    <!-- FAQ / Consultation CTA -->
+    <section class="py-20 bg-white dark:bg-[#080C13]">
+        <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
+            <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white">Butuh Solusi Kustom untuk Bisnis Anda?</h2>
+            <p class="text-slate-600 dark:text-gray-400">Tim kami siap merancang arsitektur perangkat lunak yang disesuaikan secara khusus dengan alur bisnis perusahaan Anda.</p>
+            <a href="{{ route('contact') }}" wire:navigate class="inline-block px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-600 dark:bg-gradient-to-r dark:from-amber-500 dark:via-amber-400 dark:to-yellow-500 text-slate-950 font-extrabold shadow-md shadow-amber-500/25 hover:scale-105 transition-all duration-300">
+                Diskusi dengan Insinyur Software Kami
+            </a>
         </div>
     </section>
 </div>

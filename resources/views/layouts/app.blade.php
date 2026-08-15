@@ -50,12 +50,21 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
 
+        <!-- Inline script to prevent FOUC for theme toggle -->
+        <script>
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        </script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @fluxAppearance
     </head>
-    <body class="font-sans antialiased bg-gray-900 text-gray-100">
-        <div class="min-h-screen bg-gray-900">
+    <body class="font-sans antialiased bg-[#F8FAFC] dark:bg-[#0B0F17] text-slate-900 dark:text-white selection:bg-amber-400 selection:text-slate-950 transition-colors duration-300">
+        <div class="min-h-screen bg-[#F8FAFC] dark:bg-[#0B0F17] text-slate-900 dark:text-white transition-colors duration-300">
             <livewire:layout.navigation />
 
             <!-- Page Heading -->
