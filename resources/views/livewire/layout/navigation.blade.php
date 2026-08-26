@@ -16,7 +16,7 @@ new class extends Component
     }
 }; ?>
 
-<nav x-data="{ open: false }" class="bg-white/95 dark:bg-[#111722]/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 sticky top-0 z-50 transition-colors duration-200">
+<nav x-data="{ open: false }" class="bg-surface-container-lowest/95 backdrop-blur-md border-b border-outline-variant text-on-surface sticky top-0 z-50 transition-colors duration-200">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -25,7 +25,7 @@ new class extends Component
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home') }}" wire:navigate class="flex items-center space-x-2.5 group">
                         <img src="{{ asset('flash.png') }}" alt="FlashDev Logo" class="h-8 w-auto transition-transform duration-200 group-hover:scale-105">
-                        <span class="text-lg font-bold text-slate-900 dark:text-white tracking-tight">FLASH<span class="text-amber-600 dark:text-amber-400">DEV</span></span>
+                        <span class="text-lg font-bold text-on-surface tracking-tight">FLASH<span class="text-primary">DEV</span></span>
                     </a>
                 </div>
 
@@ -78,7 +78,7 @@ new class extends Component
                         }
                     }
                 }">
-                    <button @click="toggle()" type="button" class="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#161F2E] text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 dark:hover:border-amber-500/40 transition-colors cursor-pointer" title="Toggle Theme">
+                    <button @click="toggle()" type="button" class="w-9 h-9 flex items-center justify-center rounded-lg border border-outline-variant bg-surface-container text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors cursor-pointer" title="Toggle Theme">
                         <span class="sr-only">Toggle theme</span>
                         <span class="material-symbols-outlined text-[20px]" x-text="darkMode ? 'light_mode' : 'dark_mode'"></span>
                     </button>
@@ -89,10 +89,10 @@ new class extends Component
                     @auth
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
-                                <button class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-slate-200 dark:border-slate-700 text-sm font-semibold rounded-lg text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-[#161F2E] hover:text-slate-900 dark:hover:text-white hover:border-slate-300 focus:outline-none transition ease-in-out duration-150 cursor-pointer">
-                                    <span class="material-symbols-outlined text-[18px] text-amber-600 dark:text-amber-400">account_circle</span>
+                                <button class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant text-sm font-semibold rounded-lg text-on-surface-variant bg-surface-container hover:text-on-surface hover:border-outline focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                                    <span class="material-symbols-outlined text-[18px] text-primary">account_circle</span>
                                     <div x-data="{{ json_encode(['name' => auth()->user()->name ?? '']) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-                                    <span class="material-symbols-outlined text-[16px] text-slate-500">expand_more</span>
+                                    <span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span>
                                 </button>
                             </x-slot>
 
@@ -107,7 +107,7 @@ new class extends Component
                                 <!-- Authentication -->
                                 <button wire:click="logout" class="w-full text-start">
                                     <x-dropdown-link>
-                                        <span class="inline-flex items-center gap-2 text-red-600 dark:text-red-400">
+                                        <span class="inline-flex items-center gap-2 text-state-error">
                                             <span class="material-symbols-outlined text-[18px]">logout</span>
                                             {{ __('Log Out') }}
                                         </span>
@@ -116,7 +116,7 @@ new class extends Component
                             </x-slot>
                         </x-dropdown>
                     @else
-                        <a href="{{ route('login') }}" wire:navigate class="px-3.5 py-1.5 text-sm font-semibold rounded-lg text-slate-700 dark:text-slate-200 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        <a href="{{ route('login') }}" wire:navigate class="px-3.5 py-1.5 text-sm font-semibold rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
                             Masuk
                         </a>
                     @endauth
@@ -124,7 +124,7 @@ new class extends Component
 
                 <!-- Hamburger Mobile Toggle -->
                 <div class="flex items-center sm:hidden">
-                    <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none transition duration-150 cursor-pointer">
+                    <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container focus:outline-none transition duration-150 cursor-pointer">
                         <span class="material-symbols-outlined text-[24px]" x-text="open ? 'close' : 'menu'"></span>
                     </button>
                 </div>
@@ -133,7 +133,7 @@ new class extends Component
     </div>
 
     <!-- Responsive Navigation Drawer -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111722] px-4 py-3">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden border-t border-outline-variant bg-surface-container-lowest px-4 py-3">
         <div class="space-y-1">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')" wire:navigate>
                 {{ __('Beranda') }}
@@ -164,11 +164,11 @@ new class extends Component
         </div>
 
         <!-- Responsive Auth Options -->
-        <div class="pt-3 mt-3 border-t border-slate-200 dark:border-slate-800">
+        <div class="pt-3 mt-3 border-t border-outline-variant">
             @auth
                 <div class="px-2 mb-2">
-                    <div class="font-semibold text-sm text-slate-800 dark:text-slate-200" x-data="{{ json_encode(['name' => auth()->user()->name ?? '']) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-                    <div class="text-xs text-slate-500">{{ auth()->user()->email ?? '' }}</div>
+                    <div class="font-semibold text-sm text-on-surface" x-data="{{ json_encode(['name' => auth()->user()->name ?? '']) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
+                    <div class="text-xs text-on-surface-variant">{{ auth()->user()->email ?? '' }}</div>
                 </div>
 
                 <div class="space-y-1">
@@ -179,13 +179,13 @@ new class extends Component
                     <!-- Authentication -->
                     <button wire:click="logout" class="w-full text-start">
                         <x-responsive-nav-link>
-                            <span class="text-red-600 dark:text-red-400 font-semibold">{{ __('Log Out') }}</span>
+                            <span class="text-state-error font-semibold">{{ __('Log Out') }}</span>
                         </x-responsive-nav-link>
                     </button>
                 </div>
             @else
                 <div class="pt-1">
-                    <a href="{{ route('login') }}" wire:navigate class="block w-full py-2 text-center text-sm font-semibold rounded-lg bg-amber-600 text-white hover:bg-amber-700">
+                    <a href="{{ route('login') }}" wire:navigate class="block w-full py-2 text-center text-sm font-semibold rounded-lg bg-primary text-on-primary hover:bg-primary-hover">
                         Masuk ke Akun
                     </a>
                 </div>

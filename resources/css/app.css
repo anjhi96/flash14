@@ -2,15 +2,25 @@
 @import '../../vendor/livewire/flux/dist/flux.css';
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * M3-inspired design tokens.
+ * One semantic name per role, defined once with light values under @theme,
+ * then overridden for dark mode below. Utilities (bg-surface, text-on-surface,
+ * border-outline, ...) reference var(--color-*), so the .dark override cascades
+ * to every element automatically — no `dark:` prefix needed for surface/text/
+ * border colors.
+ *
+ * Shape scale: rounded-md (badges/chips/small controls) < rounded-lg
+ * (buttons/inputs) < rounded-xl (content cards/tables) < rounded-2xl (modals).
+ */
 @theme {
-  /* Brand & M3 Primary Roles */
-  --color-primary: #D97706;
-  --color-primary-hover: #B45309;
+  /* Brand */
+  --color-primary: #B45309;
+  --color-primary-hover: #92400E;
   --color-on-primary: #FFFFFF;
   --color-primary-container: #FEF3C7;
   --color-on-primary-container: #78350F;
 
-  /* Secondary & Tertiary */
   --color-secondary: #475569;
   --color-on-secondary: #FFFFFF;
   --color-secondary-container: #F1F5F9;
@@ -21,7 +31,7 @@
   --color-tertiary-container: #CCFBF1;
   --color-on-tertiary-container: #115E59;
 
-  /* Light Surface System */
+  /* Surfaces */
   --color-surface: #F8FAFC;
   --color-surface-dim: #EDF2F7;
   --color-surface-bright: #FFFFFF;
@@ -35,23 +45,12 @@
   --color-outline: #CBD5E1;
   --color-outline-variant: #E2E8F0;
 
-  /* Dark Surface System */
-  --color-surface-dark: #0B0F17;
-  --color-surface-container-low-dark: #111722;
-  --color-surface-container-dark: #161F2E;
-  --color-surface-container-high-dark: #1E293B;
-  --color-surface-container-highest-dark: #273449;
-  --color-on-surface-dark: #F8FAFC;
-  --color-on-surface-variant-dark: #94A3B8;
-  --color-outline-dark: #334155;
-  --color-outline-variant-dark: #1E293B;
-
-  /* Semantic State Roles */
+  /* Semantic state roles */
   --color-state-success: #16A34A;
   --color-state-success-container: #DCFCE7;
   --color-state-on-success-container: #14532D;
 
-  --color-state-warning: #D97706;
+  --color-state-warning: #B45309;
   --color-state-warning-container: #FEF3C7;
   --color-state-on-warning-container: #78350F;
 
@@ -62,14 +61,53 @@
   --color-state-info: #2563EB;
   --color-state-info-container: #DBEAFE;
   --color-state-on-info-container: #1E3A8A;
+}
 
-  /* Backward Compatibility */
-  --color-flash-gold: #F59E0B;
-  --color-flash-gold-hover: #D97706;
-  --color-flash-light: #F8FAFC;
-  --color-flash-card: #FFFFFF;
-  --color-flash-border: #E2E8F0;
-  --color-flash-text: #0F172A;
+.dark {
+  --color-primary: #F59E0B;
+  --color-primary-hover: #FBBF24;
+  --color-on-primary: #451A03;
+  --color-primary-container: rgb(180 83 9 / 0.22);
+  --color-on-primary-container: #FDE68A;
+
+  --color-secondary: #94A3B8;
+  --color-on-secondary: #0F172A;
+  --color-secondary-container: #1E293B;
+  --color-on-secondary-container: #E2E8F0;
+
+  --color-tertiary: #2DD4BF;
+  --color-on-tertiary: #042F2C;
+  --color-tertiary-container: rgb(13 148 136 / 0.22);
+  --color-on-tertiary-container: #99F6E4;
+
+  --color-surface: #0B0F17;
+  --color-surface-dim: #0B0F17;
+  --color-surface-bright: #1E293B;
+  --color-surface-container-lowest: #070A10;
+  --color-surface-container-low: #111722;
+  --color-surface-container: #161F2E;
+  --color-surface-container-high: #1E293B;
+  --color-surface-container-highest: #273449;
+  --color-on-surface: #F8FAFC;
+  --color-on-surface-variant: #94A3B8;
+  --color-outline: #334155;
+  --color-outline-variant: #1E293B;
+
+  --color-state-success: #4ADE80;
+  --color-state-success-container: rgb(22 163 74 / 0.18);
+  --color-state-on-success-container: #BBF7D0;
+
+  --color-state-warning: #F59E0B;
+  --color-state-warning-container: rgb(180 83 9 / 0.22);
+  --color-state-on-warning-container: #FDE68A;
+
+  --color-state-error: #F87171;
+  --color-state-error-container: rgb(220 38 38 / 0.18);
+  --color-state-on-error-container: #FECACA;
+
+  --color-state-info: #60A5FA;
+  --color-state-info-container: rgb(37 99 235 / 0.2);
+  --color-state-on-info-container: #BFDBFE;
 }
 
 /* Material Symbols Styling */
@@ -100,26 +138,6 @@
 
 /* Smooth Focus Rings */
 .m3-focus-ring:focus-visible {
-  outline: 2px solid #D97706;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
-}
-
-/* Standard M3 Chip */
-.m3-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  line-height: 1rem;
-  letter-spacing: 0.025em;
-  transition: all 0.15s ease-in-out;
-}
-
-/* M3 Surface Container Elevation (Tonal) */
-.m3-card {
-  border-radius: 0.875rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'FlashDev') }}</title>
 
         <!-- Fonts & Material Symbols -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,16 +26,16 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-slate-900 dark:text-slate-100 antialiased bg-[#F8FAFC] dark:bg-[#0B0F17]">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-8 sm:pt-0 bg-[#F8FAFC] dark:bg-[#0B0F17] px-4">
+    <body class="font-sans text-on-surface antialiased bg-surface">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-8 sm:pt-0 bg-surface px-4">
             <div>
                 <a href="/" wire:navigate class="flex items-center space-x-2">
                     <img src="{{ asset('flash.png') }}" alt="FlashDev Logo" class="h-10 w-auto">
-                    <span class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">FLASH<span class="text-amber-600 dark:text-amber-400">DEV</span></span>
+                    <span class="text-2xl font-bold tracking-tight text-on-surface">FLASH<span class="text-primary">DEV</span></span>
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-8 py-7 bg-white dark:bg-[#111722] border border-slate-200 dark:border-slate-800 shadow-xs sm:rounded-2xl">
+            <div class="w-full sm:max-w-md mt-6 px-8 py-7 bg-surface-container-lowest border border-outline-variant shadow-xs sm:rounded-2xl">
                 {{ $slot }}
             </div>
         </div>

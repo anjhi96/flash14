@@ -331,163 +331,115 @@ new class extends Component {
     }
 }; ?>
 
-<div class="bg-[#F8FAFC] dark:bg-[#111722] text-slate-900 dark:text-slate-100 min-h-screen pb-20 transition-colors duration-200">
+<div class="bg-surface text-on-surface min-h-screen pb-20 transition-colors duration-200">
     <!-- Top Header -->
-    <div class="bg-white dark:bg-[#111722] border-b border-slate-200 dark:border-slate-800 py-6 px-4 sm:px-6 lg:px-8 shadow-2xs">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div class="space-y-1">
-                <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30 text-xs font-semibold uppercase tracking-wider">
-                    <span class="material-symbols-outlined text-[14px]">shield</span>
-                    Control Center
-                </div>
-                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Admin Management Panel</h1>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Kelola master data layanan, portofolio sistem, tim agensi, dan pesan pengunjung.</p>
-            </div>
-            <div class="flex items-center gap-3">
-                <a href="{{ route('home') }}" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white dark:bg-[#161F2E] hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 shadow-2xs transition-colors">
-                    <span class="material-symbols-outlined text-[16px]">open_in_new</span>
-                    Pratinjau Website
-                </a>
-            </div>
+    <div class="bg-surface-container-lowest border-b border-outline-variant py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <x-page-header eyebrow="Control Center" icon="shield" title="Admin Management Panel" description="Kelola master data layanan, portofolio sistem, tim agensi, dan pesan pengunjung.">
+                <x-slot name="actions">
+                    <a href="{{ route('home') }}" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-xs font-semibold text-on-surface border border-outline shadow-2xs transition-colors">
+                        <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                        Pratinjau Website
+                    </a>
+                </x-slot>
+            </x-page-header>
         </div>
     </div>
 
     <!-- Alert Banner -->
     @if (session()->has('success'))
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-            <div class="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 text-emerald-800 dark:text-emerald-300 px-4 py-3 rounded-xl text-sm font-medium flex items-center justify-between shadow-2xs">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[20px] text-emerald-600 dark:text-emerald-400">check_circle</span>
-                    <span>{{ session('success') }}</span>
-                </div>
-                <button type="button" onclick="this.parentElement.remove()" class="text-emerald-700 dark:text-emerald-400 hover:text-emerald-900 p-1 rounded-md">&times;</button>
-            </div>
+            <x-alert variant="success">{{ session('success') }}</x-alert>
         </div>
     @endif
 
-    <!-- Main Container & M3 Navigation Tabs -->
+    <!-- Main Container & Tabs -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <!-- Tabs Bar -->
-        <div class="flex border-b border-slate-200 dark:border-slate-800 overflow-x-auto gap-2 pb-2">
-            <button wire:click="setTab('overview')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer {{ $activeTab === 'overview' ? 'bg-amber-500 text-slate-950 shadow-xs' : 'bg-white dark:bg-[#111722] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800' }}">
+        <div class="flex border-b border-outline-variant overflow-x-auto gap-5 sm:gap-7">
+            <x-tab-button wire:click="setTab('overview')" :active="$activeTab === 'overview'">
                 <span class="material-symbols-outlined text-[18px]">dashboard</span>
                 Ringkasan
-            </button>
-            <button wire:click="setTab('services')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer {{ $activeTab === 'services' ? 'bg-amber-500 text-slate-950 shadow-xs' : 'bg-white dark:bg-[#111722] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800' }}">
+            </x-tab-button>
+            <x-tab-button wire:click="setTab('services')" :active="$activeTab === 'services'">
                 <span class="material-symbols-outlined text-[18px]">design_services</span>
                 Layanan ({{ $servicesCount }})
-            </button>
-            <button wire:click="setTab('projects')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer {{ $activeTab === 'projects' ? 'bg-amber-500 text-slate-950 shadow-xs' : 'bg-white dark:bg-[#111722] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800' }}">
+            </x-tab-button>
+            <x-tab-button wire:click="setTab('projects')" :active="$activeTab === 'projects'">
                 <span class="material-symbols-outlined text-[18px]">folder_special</span>
                 Portofolio ({{ $projectsCount }})
-            </button>
-            <button wire:click="setTab('team')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer {{ $activeTab === 'team' ? 'bg-amber-500 text-slate-950 shadow-xs' : 'bg-white dark:bg-[#111722] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800' }}">
+            </x-tab-button>
+            <x-tab-button wire:click="setTab('team')" :active="$activeTab === 'team'">
                 <span class="material-symbols-outlined text-[18px]">group</span>
                 Tim Agensi ({{ $teamCount }})
-            </button>
-            <button wire:click="setTab('messages')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer {{ $activeTab === 'messages' ? 'bg-amber-500 text-slate-950 shadow-xs' : 'bg-white dark:bg-[#111722] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800' }}">
+            </x-tab-button>
+            <x-tab-button wire:click="setTab('messages')" :active="$activeTab === 'messages'">
                 <span class="material-symbols-outlined text-[18px]">mail</span>
                 Pesan Masuk ({{ $messagesCount }})
                 @if ($messagesUnreadCount > 0)
-                    <span class="px-1.5 py-0.2 text-[10px] bg-red-600 text-white rounded-full font-bold">
-                        {{ $messagesUnreadCount }} Baru
-                    </span>
+                    <x-badge variant="error">{{ $messagesUnreadCount }} Baru</x-badge>
                 @endif
-            </button>
-            <button wire:click="setTab('sections')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer {{ $activeTab === 'sections' ? 'bg-amber-500 text-slate-950 shadow-xs' : 'bg-white dark:bg-[#111722] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800' }}">
+            </x-tab-button>
+            <x-tab-button wire:click="setTab('sections')" :active="$activeTab === 'sections'">
                 <span class="material-symbols-outlined text-[18px]">tune</span>
                 Pengaturan Halaman
-            </button>
+            </x-tab-button>
         </div>
 
         <!-- TAB 1: OVERVIEW -->
         @if ($activeTab === 'overview')
             <div class="pt-6 space-y-6">
-                <!-- Summary Tonal Stat Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-white dark:bg-[#111722] p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Layanan</span>
-                            <span class="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[18px]">design_services</span>
-                            </span>
-                        </div>
-                        <div class="text-3xl font-bold text-slate-900 dark:text-white">{{ $servicesCount }}</div>
-                        <div class="text-xs text-amber-700 dark:text-amber-400 font-semibold flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                            {{ $servicesActiveCount }} Layanan Berstatus Aktif
-                        </div>
+                <!-- Summary Metrics Strip -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-outline-variant bg-surface-container-lowest divide-y divide-outline-variant lg:divide-y-0 lg:divide-x">
+                    <div class="p-5 space-y-1.5">
+                        <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Total Layanan</span>
+                        <div class="text-2xl font-semibold text-on-surface">{{ $servicesCount }}</div>
+                        <p class="text-xs text-on-surface-variant">{{ $servicesActiveCount }} berstatus aktif</p>
                     </div>
-
-                    <div class="bg-white dark:bg-[#111722] p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Portofolio</span>
-                            <span class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:bg-blue-400/20 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[18px]">folder_special</span>
-                            </span>
-                        </div>
-                        <div class="text-3xl font-bold text-slate-900 dark:text-white">{{ $projectsCount }}</div>
-                        <div class="text-xs text-slate-600 dark:text-slate-300 font-semibold flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px] text-amber-500">star</span>
-                            {{ $projectsFeaturedCount }} Pilihan (Featured)
-                        </div>
+                    <div class="p-5 space-y-1.5">
+                        <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Portofolio</span>
+                        <div class="text-2xl font-semibold text-on-surface">{{ $projectsCount }}</div>
+                        <p class="text-xs text-on-surface-variant">{{ $projectsFeaturedCount }} pilihan (featured)</p>
                     </div>
-
-                    <div class="bg-white dark:bg-[#111722] p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Anggota Tim</span>
-                            <span class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[18px]">group</span>
-                            </span>
-                        </div>
-                        <div class="text-3xl font-bold text-slate-900 dark:text-white">{{ $teamCount }}</div>
-                        <div class="text-xs text-emerald-700 dark:text-emerald-400 font-semibold">Profil Ditampilkan</div>
+                    <div class="p-5 space-y-1.5">
+                        <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Anggota Tim</span>
+                        <div class="text-2xl font-semibold text-on-surface">{{ $teamCount }}</div>
+                        <p class="text-xs text-on-surface-variant">Profil ditampilkan</p>
                     </div>
-
-                    <div class="bg-white dark:bg-[#111722] p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Pesan Masuk</span>
-                            <span class="w-8 h-8 rounded-lg bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[18px]">mail</span>
-                            </span>
-                        </div>
-                        <div class="text-3xl font-bold text-slate-900 dark:text-white">{{ $messagesCount }}</div>
-                        <div class="text-xs text-rose-600 dark:text-rose-400 font-semibold">
-                            {{ $messagesUnreadCount }} Pesan Belum Dibaca
-                        </div>
+                    <div class="p-5 space-y-1.5">
+                        <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Pesan Masuk</span>
+                        <div class="text-2xl font-semibold text-on-surface">{{ $messagesCount }}</div>
+                        <p class="text-xs {{ $messagesUnreadCount > 0 ? 'text-state-error' : 'text-on-surface-variant' }}">{{ $messagesUnreadCount }} belum dibaca</p>
                     </div>
                 </div>
 
-                <!-- Recent Messages High-Density Table/List -->
-                <div class="bg-white dark:bg-[#111722] rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs overflow-hidden">
-                    <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                        <h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
-                            <span class="material-symbols-outlined text-[18px] text-amber-600">inbox</span>
-                            Pesan Masuk Terbaru
-                        </h3>
-                        <button wire:click="setTab('messages')" class="text-xs font-semibold text-amber-700 dark:text-amber-400 hover:underline">
-                            Lihat Semua Pesan →
+                <!-- Recent Messages -->
+                <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden">
+                    <div class="px-5 py-4 border-b border-outline-variant flex items-center justify-between">
+                        <h3 class="text-sm font-bold text-on-surface uppercase tracking-wider">Pesan Masuk Terbaru</h3>
+                        <button wire:click="setTab('messages')" class="text-xs font-semibold text-primary hover:underline cursor-pointer">
+                            Lihat Semua Pesan &rarr;
                         </button>
                     </div>
 
                     @if ($messages->isEmpty())
-                        <div class="p-6 text-center text-xs text-slate-500">Belum ada pesan masuk dari pengunjung.</div>
+                        <div class="p-6 text-center text-xs text-on-surface-variant">Belum ada pesan masuk dari pengunjung.</div>
                     @else
-                        <div class="divide-y divide-slate-100 dark:divide-slate-800">
+                        <div class="divide-y divide-outline-variant">
                             @foreach ($messages->take(5) as $msg)
-                                <div class="px-5 py-3.5 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-[#161F2E] cursor-pointer transition-colors" wire:click="viewMessage({{ $msg->id }})">
+                                <div class="px-5 py-3.5 flex items-center justify-between hover:bg-surface-container cursor-pointer transition-colors" wire:click="viewMessage({{ $msg->id }})">
                                     <div class="space-y-0.5">
                                         <div class="flex items-center gap-2">
-                                            <span class="text-xs font-bold text-slate-900 dark:text-white">{{ $msg->name }}</span>
-                                            <span class="text-xs text-slate-500">({{ $msg->email }})</span>
+                                            <span class="text-xs font-bold text-on-surface">{{ $msg->name }}</span>
+                                            <span class="text-xs text-on-surface-variant">({{ $msg->email }})</span>
                                             @if (!$msg->is_read)
-                                                <span class="px-2 py-0.5 bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 text-[10px] font-bold rounded-md">Baru</span>
+                                                <x-badge variant="error">Baru</x-badge>
                                             @endif
                                         </div>
-                                        <p class="text-xs font-medium text-amber-700 dark:text-amber-400">{{ $msg->subject ?: 'Tanpa Subjek' }}</p>
-                                        <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-1">{{ $msg->message }}</p>
+                                        <p class="text-xs font-medium text-primary">{{ $msg->subject ?: 'Tanpa Subjek' }}</p>
+                                        <p class="text-xs text-on-surface-variant line-clamp-1">{{ $msg->message }}</p>
                                     </div>
-                                    <span class="text-[11px] text-slate-400 shrink-0 ml-4">{{ $msg->created_at->diffForHumans() }}</span>
+                                    <span class="text-[11px] text-on-surface-variant shrink-0 ml-4">{{ $msg->created_at->diffForHumans() }}</span>
                                 </div>
                             @endforeach
                         </div>
@@ -501,18 +453,18 @@ new class extends Component {
             <div class="pt-6 space-y-4">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Daftar Layanan</h3>
-                        <p class="text-xs text-slate-500">Kelola paket solusi dan layanan software agensi.</p>
+                        <h3 class="text-lg font-bold text-on-surface">Daftar Layanan</h3>
+                        <p class="text-xs text-on-surface-variant">Kelola paket solusi dan layanan software agensi.</p>
                     </div>
-                    <button wire:click="openServiceModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-xs transition-colors cursor-pointer">
+                    <x-primary-button type="button" wire:click="openServiceModal()">
                         <span class="material-symbols-outlined text-[16px]">add</span>
                         Tambah Layanan
-                    </button>
+                    </x-primary-button>
                 </div>
 
-                <div class="bg-white dark:bg-[#111722] rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs overflow-x-auto">
+                <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-x-auto">
                     <table class="w-full text-left text-xs">
-                        <thead class="bg-slate-50 dark:bg-[#161F2E] text-slate-600 dark:text-slate-300 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800 font-bold">
+                        <thead class="bg-surface-container text-on-surface-variant uppercase tracking-wider border-b border-outline-variant font-bold">
                             <tr>
                                 <th class="py-3 px-4 w-16">Urutan</th>
                                 <th class="py-3 px-4">Judul Layanan</th>
@@ -521,21 +473,22 @@ new class extends Component {
                                 <th class="py-3 px-4 w-36 text-right">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800/80">
+                        <tbody class="divide-y divide-outline-variant">
                             @foreach ($services as $s)
-                                <tr class="hover:bg-slate-50 dark:hover:bg-[#161F2E]/60 transition-colors">
-                                    <td class="py-3 px-4 font-mono font-semibold text-slate-500">{{ $s->order }}</td>
-                                    <td class="py-3 px-4 font-bold text-slate-900 dark:text-white">{{ $s->title }}</td>
-                                    <td class="py-3 px-4 text-slate-600 dark:text-slate-300 max-w-sm truncate">{{ $s->short_description }}</td>
+                                <tr class="hover:bg-surface-container transition-colors">
+                                    <td class="py-3 px-4 font-mono font-semibold text-on-surface-variant">{{ $s->order }}</td>
+                                    <td class="py-3 px-4 font-bold text-on-surface">{{ $s->title }}</td>
+                                    <td class="py-3 px-4 text-on-surface-variant max-w-sm truncate">{{ $s->short_description }}</td>
                                     <td class="py-3 px-4">
-                                        <button wire:click="toggleServiceActive({{ $s->id }})" class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-bold border cursor-pointer {{ $s->is_active ? 'bg-emerald-50 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-500/30' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700' }}">
-                                            <span class="w-1.5 h-1.5 rounded-full {{ $s->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
-                                            {{ $s->is_active ? 'AKTIF' : 'NON-AKTIF' }}
+                                        <button type="button" wire:click="toggleServiceActive({{ $s->id }})" class="cursor-pointer">
+                                            <x-badge :variant="$s->is_active ? 'success' : 'neutral'">
+                                                {{ $s->is_active ? 'AKTIF' : 'NON-AKTIF' }}
+                                            </x-badge>
                                         </button>
                                     </td>
-                                    <td class="py-3 px-4 text-right space-x-1.5">
-                                        <button wire:click="openServiceModal({{ $s->id }})" class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs transition-colors cursor-pointer">Edit</button>
-                                        <button wire:click="deleteService({{ $s->id }})" wire:confirm="Hapus layanan ini?" class="px-2.5 py-1 rounded-md bg-red-50 dark:bg-red-950/40 hover:bg-red-100 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/40 font-semibold text-xs transition-colors cursor-pointer">Hapus</button>
+                                    <td class="py-3 px-4 text-right space-x-1">
+                                        <x-link-button wire:click="openServiceModal({{ $s->id }})">Edit</x-link-button>
+                                        <x-link-button variant="danger" wire:click="deleteService({{ $s->id }})" wire:confirm="Hapus layanan ini?">Hapus</x-link-button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -550,47 +503,49 @@ new class extends Component {
             <div class="pt-6 space-y-4">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Portofolio Proyek</h3>
-                        <p class="text-xs text-slate-500">Koleksi karya & studi kasus sistem klien.</p>
+                        <h3 class="text-lg font-bold text-on-surface">Portofolio Proyek</h3>
+                        <p class="text-xs text-on-surface-variant">Koleksi karya & studi kasus sistem klien.</p>
                     </div>
-                    <button wire:click="openProjectModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-xs transition-colors cursor-pointer">
+                    <x-primary-button type="button" wire:click="openProjectModal()">
                         <span class="material-symbols-outlined text-[16px]">add</span>
                         Tambah Proyek
-                    </button>
+                    </x-primary-button>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     @foreach ($projects as $p)
-                        <div class="bg-white dark:bg-[#111722] rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs overflow-hidden flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 transition-all">
+                        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden flex flex-col justify-between hover:border-outline transition-all">
                             <div>
-                                <div class="aspect-video bg-slate-100 dark:bg-[#161F2E] relative overflow-hidden">
+                                <div class="aspect-video bg-surface-container relative overflow-hidden">
                                     @if ($p->thumbnail)
                                         <img src="{{ $p->thumbnail }}" alt="{{ $p->title }}" class="w-full h-full object-cover">
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center text-xs text-slate-400">No Image</div>
+                                        <div class="w-full h-full flex items-center justify-center text-xs text-on-surface-variant">No Image</div>
                                     @endif
                                     <div class="absolute top-2.5 left-2.5">
-                                        <span class="px-2.5 py-1 bg-slate-900/80 backdrop-blur-xs text-white text-[10px] font-semibold rounded-md border border-slate-700">
+                                        <span class="px-2.5 py-1 bg-black/70 backdrop-blur-xs text-white text-[10px] font-semibold rounded-md">
                                             {{ $p->category }}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="p-4 space-y-1.5">
-                                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">{{ $p->title }}</h4>
-                                    <p class="text-xs text-amber-700 dark:text-amber-400 font-semibold">Klien: {{ $p->client ?? 'N/A' }}</p>
-                                    <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{{ $p->description }}</p>
+                                    <h4 class="font-bold text-on-surface text-sm">{{ $p->title }}</h4>
+                                    <p class="text-xs text-primary font-semibold">Klien: {{ $p->client ?? 'N/A' }}</p>
+                                    <p class="text-xs text-on-surface-variant line-clamp-2">{{ $p->description }}</p>
                                 </div>
                             </div>
 
-                            <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 mt-3 pt-3">
-                                <button wire:click="toggleProjectFeatured({{ $p->id }})" class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-bold border cursor-pointer {{ $p->is_featured ? 'bg-amber-50 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-500/30' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700' }}">
-                                    <span class="material-symbols-outlined text-[12px] {{ $p->is_featured ? 'text-amber-600' : 'text-slate-400' }}">star</span>
-                                    {{ $p->is_featured ? 'FEATURED' : 'STANDAR' }}
+                            <div class="p-4 pt-3 flex items-center justify-between border-t border-outline-variant mt-3">
+                                <button type="button" wire:click="toggleProjectFeatured({{ $p->id }})" class="cursor-pointer">
+                                    <x-badge :variant="$p->is_featured ? 'primary' : 'neutral'">
+                                        <span class="material-symbols-outlined text-[12px]">star</span>
+                                        {{ $p->is_featured ? 'FEATURED' : 'STANDAR' }}
+                                    </x-badge>
                                 </button>
 
                                 <div class="space-x-1">
-                                    <button wire:click="openProjectModal({{ $p->id }})" class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs cursor-pointer">Edit</button>
-                                    <button wire:click="deleteProject({{ $p->id }})" wire:confirm="Hapus proyek ini?" class="px-2.5 py-1 rounded-md bg-red-50 dark:bg-red-950/40 hover:bg-red-100 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/40 font-semibold text-xs cursor-pointer">Hapus</button>
+                                    <x-link-button wire:click="openProjectModal({{ $p->id }})">Edit</x-link-button>
+                                    <x-link-button variant="danger" wire:click="deleteProject({{ $p->id }})" wire:confirm="Hapus proyek ini?">Hapus</x-link-button>
                                 </div>
                             </div>
                         </div>
@@ -604,36 +559,36 @@ new class extends Component {
             <div class="pt-6 space-y-4">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Anggota Tim Agensi</h3>
-                        <p class="text-xs text-slate-500">Struktur engineer dan personel kunci.</p>
+                        <h3 class="text-lg font-bold text-on-surface">Anggota Tim Agensi</h3>
+                        <p class="text-xs text-on-surface-variant">Struktur engineer dan personel kunci.</p>
                     </div>
-                    <button wire:click="openTeamModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-xs transition-colors cursor-pointer">
+                    <x-primary-button type="button" wire:click="openTeamModal()">
                         <span class="material-symbols-outlined text-[16px]">person_add</span>
                         Tambah Anggota Tim
-                    </button>
+                    </x-primary-button>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     @foreach ($teamMembers as $m)
-                        <div class="bg-white dark:bg-[#111722] rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs p-4 text-center space-y-3 flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 transition-all">
+                        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4 text-center space-y-3 flex flex-col justify-between hover:border-outline transition-all">
                             <div class="space-y-2.5">
-                                <div class="w-16 h-16 rounded-full overflow-hidden mx-auto bg-slate-100 dark:bg-[#161F2E] border-2 border-amber-500">
+                                <div class="w-16 h-16 rounded-full overflow-hidden mx-auto bg-surface-container border-2 border-primary/60">
                                     @if ($m->photo)
                                         <img src="{{ $m->photo }}" alt="{{ $m->name }}" class="w-full h-full object-cover">
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center font-bold text-slate-500 text-base">{{ substr($m->name, 0, 1) }}</div>
+                                        <div class="w-full h-full flex items-center justify-center font-bold text-on-surface-variant text-base">{{ substr($m->name, 0, 1) }}</div>
                                     @endif
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-slate-900 dark:text-white text-xs">{{ $m->name }}</h4>
-                                    <p class="text-[11px] text-amber-700 dark:text-amber-400 font-semibold mt-0.5">{{ $m->position }}</p>
+                                    <h4 class="font-bold text-on-surface text-xs">{{ $m->name }}</h4>
+                                    <p class="text-[11px] text-primary font-semibold mt-0.5">{{ $m->position }}</p>
                                 </div>
-                                <p class="text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2">{{ $m->bio }}</p>
+                                <p class="text-[11px] text-on-surface-variant line-clamp-2">{{ $m->bio }}</p>
                             </div>
 
-                            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-center space-x-1.5">
-                                <button wire:click="openTeamModal({{ $m->id }})" class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs cursor-pointer">Edit</button>
-                                <button wire:click="deleteTeamMember({{ $m->id }})" wire:confirm="Hapus anggota tim ini?" class="px-2.5 py-1 rounded-md bg-red-50 dark:bg-red-950/40 hover:bg-red-100 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/40 font-semibold text-xs cursor-pointer">Hapus</button>
+                            <div class="pt-3 border-t border-outline-variant flex justify-center space-x-1">
+                                <x-link-button wire:click="openTeamModal({{ $m->id }})">Edit</x-link-button>
+                                <x-link-button variant="danger" wire:click="deleteTeamMember({{ $m->id }})" wire:confirm="Hapus anggota tim ini?">Hapus</x-link-button>
                             </div>
                         </div>
                     @endforeach
@@ -644,41 +599,39 @@ new class extends Component {
         <!-- TAB 5: MESSAGES INBOX -->
         @if ($activeTab === 'messages')
             <div class="pt-6 space-y-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Kotak Pesan Masuk</h3>
-                        <p class="text-xs text-slate-500">{{ $messagesUnreadCount }} Pesan Belum Dibaca</p>
-                    </div>
+                <div>
+                    <h3 class="text-lg font-bold text-on-surface">Kotak Pesan Masuk</h3>
+                    <p class="text-xs text-on-surface-variant">{{ $messagesUnreadCount }} Pesan Belum Dibaca</p>
                 </div>
 
-                <div class="bg-white dark:bg-[#111722] rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs overflow-hidden">
+                <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden">
                     @if ($messages->isEmpty())
-                        <div class="p-8 text-center text-slate-500 text-xs">Belum ada pesan masuk.</div>
+                        <div class="p-8 text-center text-on-surface-variant text-xs">Belum ada pesan masuk.</div>
                     @else
-                        <div class="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+                        <div class="divide-y divide-outline-variant text-xs">
                             @foreach ($messages as $msg)
-                                <div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 {{ !$msg->is_read ? 'bg-amber-50/40 dark:bg-amber-950/20' : '' }}">
+                                <div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 {{ !$msg->is_read ? 'bg-primary-container/40' : '' }}">
                                     <div class="space-y-1 cursor-pointer flex-1" wire:click="viewMessage({{ $msg->id }})">
                                         <div class="flex items-center gap-2">
-                                            <span class="font-bold text-slate-900 dark:text-white text-xs">{{ $msg->name }}</span>
-                                            <span class="text-slate-500">({{ $msg->email }})</span>
+                                            <span class="font-bold text-on-surface text-xs">{{ $msg->name }}</span>
+                                            <span class="text-on-surface-variant">({{ $msg->email }})</span>
                                             @if ($msg->phone)
-                                                <span class="text-slate-400">• WA: {{ $msg->phone }}</span>
+                                                <span class="text-on-surface-variant">&bull; WA: {{ $msg->phone }}</span>
                                             @endif
                                             @if (!$msg->is_read)
-                                                <span class="px-2 py-0.5 bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30 text-[10px] font-bold rounded-md">UNREAD</span>
+                                                <x-badge variant="error">UNREAD</x-badge>
                                             @endif
                                         </div>
-                                        <p class="font-semibold text-amber-700 dark:text-amber-400">{{ $msg->subject ?: 'Tanpa Subjek' }}</p>
-                                        <p class="text-slate-600 dark:text-slate-400 line-clamp-1">{{ $msg->message }}</p>
+                                        <p class="font-semibold text-primary">{{ $msg->subject ?: 'Tanpa Subjek' }}</p>
+                                        <p class="text-on-surface-variant line-clamp-1">{{ $msg->message }}</p>
                                     </div>
 
-                                    <div class="flex items-center space-x-2 shrink-0">
-                                        <span class="text-[11px] text-slate-400 mr-2">{{ $msg->created_at->format('d M Y, H:i') }}</span>
-                                        <button wire:click="toggleMessageRead({{ $msg->id }})" class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs cursor-pointer">
+                                    <div class="flex items-center space-x-1 shrink-0">
+                                        <span class="text-[11px] text-on-surface-variant mr-2">{{ $msg->created_at->format('d M Y, H:i') }}</span>
+                                        <x-link-button wire:click="toggleMessageRead({{ $msg->id }})">
                                             {{ $msg->is_read ? 'Tandai Belum Dibaca' : 'Tandai Dibaca' }}
-                                        </button>
-                                        <button wire:click="deleteMessage({{ $msg->id }})" wire:confirm="Hapus pesan ini?" class="px-2.5 py-1 rounded-md bg-red-50 dark:bg-red-950/40 hover:bg-red-100 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/40 font-semibold text-xs cursor-pointer">Hapus</button>
+                                        </x-link-button>
+                                        <x-link-button variant="danger" wire:click="deleteMessage({{ $msg->id }})" wire:confirm="Hapus pesan ini?">Hapus</x-link-button>
                                     </div>
                                 </div>
                             @endforeach
@@ -692,39 +645,32 @@ new class extends Component {
         @if ($activeTab === 'sections')
             <div class="pt-6 space-y-4">
                 <div>
-                    <h2 class="text-lg font-bold text-slate-900 dark:text-white">Pengaturan Modul Section Beranda</h2>
-                    <p class="text-xs text-slate-500">Aktifkan atau non-aktifkan bagian halaman beranda tanpa menyentuh kode program.</p>
+                    <h2 class="text-lg font-bold text-on-surface">Pengaturan Modul Section Beranda</h2>
+                    <p class="text-xs text-on-surface-variant">Aktifkan atau non-aktifkan bagian halaman beranda tanpa menyentuh kode program.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     @foreach ($pageSections as $section)
-                        <div class="bg-white dark:bg-[#111722] border {{ $section->is_enabled ? 'border-slate-200 dark:border-slate-800' : 'border-red-200 dark:border-red-900/30 bg-red-50/20' }} rounded-xl p-4 flex items-center justify-between gap-4 transition-all shadow-2xs">
+                        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex items-center justify-between gap-4 transition-all">
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full flex-shrink-0 {{ $section->is_enabled ? 'bg-emerald-500' : 'bg-red-500' }}"></span>
-                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">{{ $section->section_name }}</h4>
+                                    <span class="w-2 h-2 rounded-full shrink-0 {{ $section->is_enabled ? 'bg-state-success' : 'bg-state-error' }}"></span>
+                                    <h4 class="text-xs font-bold text-on-surface truncate">{{ $section->section_name }}</h4>
                                 </div>
-                                <p class="text-[11px] text-slate-500 mt-0.5 ml-4">
-                                    Key: <code class="bg-slate-100 dark:bg-slate-900 px-1 py-0.5 rounded text-amber-700 dark:text-amber-300 font-mono">{{ $section->section_key }}</code>
-                                    · Urutan ke-{{ $section->order }}
+                                <p class="text-[11px] text-on-surface-variant mt-0.5 ml-4">
+                                    Key: <code class="bg-surface-container px-1 py-0.5 rounded text-primary font-mono">{{ $section->section_key }}</code>
+                                    &middot; Urutan ke-{{ $section->order }}
                                 </p>
                             </div>
-                            <div class="flex items-center gap-2.5 flex-shrink-0">
+                            <div class="flex items-center gap-2.5 shrink-0">
                                 @if ($section->section_key === 'tech_stack')
-                                    <button wire:click="openTechStackEditor" class="px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-500/10 hover:bg-amber-100 text-amber-800 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30 text-xs font-semibold cursor-pointer">
-                                        Edit Items
-                                    </button>
+                                    <x-link-button wire:click="openTechStackEditor">Edit Items</x-link-button>
                                 @endif
-                                <button
+                                <x-switch-input
+                                    :checked="$section->is_enabled"
                                     wire:click="toggleSection('{{ $section->section_key }}')"
-                                    class="relative w-11 h-6 rounded-full transition-all duration-200 focus:outline-none cursor-pointer {{ $section->is_enabled ? 'bg-amber-500' : 'bg-slate-300 dark:bg-slate-700' }}"
                                     title="{{ $section->is_enabled ? 'Klik untuk non-aktifkan' : 'Klik untuk aktifkan' }}"
-                                >
-                                    <span class="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-xs transition-transform duration-200 {{ $section->is_enabled ? 'translate-x-5' : 'translate-x-0' }}"></span>
-                                </button>
-                                <span class="text-xs font-semibold w-16 text-right {{ $section->is_enabled ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-600 dark:text-red-400' }}">
-                                    {{ $section->is_enabled ? 'AKTIF' : 'HIDDEN' }}
-                                </span>
+                                />
                             </div>
                         </div>
                     @endforeach
@@ -735,17 +681,17 @@ new class extends Component {
 
     <!-- MODAL: SERVICE FORM -->
     @if ($showServiceModal)
-        <div class="fixed inset-0 bg-slate-900/60 dark:bg-black/70 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-            <div class="bg-white dark:bg-[#161F2E] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-xl text-slate-900 dark:text-white">
-                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white">{{ $serviceId ? 'Edit Layanan' : 'Tambah Layanan Baru' }}</h3>
-                    <button wire:click="$set('showServiceModal', false)" class="text-slate-400 hover:text-slate-700 dark:hover:text-white font-bold text-xl cursor-pointer">&times;</button>
+        <div x-data class="fixed inset-0 bg-on-surface/60 z-50 flex items-center justify-center p-4" wire:click.self="$set('showServiceModal', false)" x-on:keydown.escape.window="$wire.set('showServiceModal', false)">
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-xl text-on-surface">
+                <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+                    <h3 class="text-base font-bold text-on-surface">{{ $serviceId ? 'Edit Layanan' : 'Tambah Layanan Baru' }}</h3>
+                    <button wire:click="$set('showServiceModal', false)" class="text-on-surface-variant hover:text-on-surface font-bold text-xl cursor-pointer" aria-label="Tutup">&times;</button>
                 </div>
                 <form wire:submit="saveService" class="space-y-3.5 text-xs">
                     <div>
                         <x-input-label value="Judul Layanan *" />
                         <x-text-input type="text" wire:model="serviceTitle" />
-                        @error('serviceTitle') <span class="text-red-500 font-semibold text-[11px]">{{ $message }}</span> @enderror
+                        @error('serviceTitle') <span class="text-state-error font-semibold text-[11px]">{{ $message }}</span> @enderror
                     </div>
                     <div>
                         <x-input-label value="Nama Icon (contoh: code-bracket, cloud, database)" />
@@ -754,12 +700,12 @@ new class extends Component {
                     <div>
                         <x-input-label value="Deskripsi Singkat *" />
                         <x-text-input type="text" wire:model="serviceShortDescription" />
-                        @error('serviceShortDescription') <span class="text-red-500 font-semibold text-[11px]">{{ $message }}</span> @enderror
+                        @error('serviceShortDescription') <span class="text-state-error font-semibold text-[11px]">{{ $message }}</span> @enderror
                     </div>
                     <div>
                         <x-input-label value="Deskripsi Lengkap *" />
-                        <textarea wire:model="serviceDescription" rows="4" class="w-full px-3.5 py-2.5 rounded-lg bg-white dark:bg-[#111722] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-xs focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:outline-none"></textarea>
-                        @error('serviceDescription') <span class="text-red-500 font-semibold text-[11px]">{{ $message }}</span> @enderror
+                        <x-textarea-input wire:model="serviceDescription" :rows="4" />
+                        @error('serviceDescription') <span class="text-state-error font-semibold text-[11px]">{{ $message }}</span> @enderror
                     </div>
                     <div class="grid grid-cols-2 gap-3 items-center">
                         <div>
@@ -768,12 +714,12 @@ new class extends Component {
                         </div>
                         <div class="flex items-center pt-4">
                             <label class="flex items-center space-x-2 cursor-pointer">
-                                <input type="checkbox" wire:model="serviceIsActive" class="rounded border-slate-300 dark:border-slate-700 text-amber-600 focus:ring-amber-500">
-                                <span class="font-semibold text-xs text-slate-700 dark:text-slate-300">Status Aktif</span>
+                                <input type="checkbox" wire:model="serviceIsActive" class="rounded border-outline text-primary focus:ring-primary">
+                                <span class="font-semibold text-xs text-on-surface-variant">Status Aktif</span>
                             </label>
                         </div>
                     </div>
-                    <div class="flex justify-end space-x-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <div class="flex justify-end space-x-2 pt-3 border-t border-outline-variant">
                         <x-secondary-button type="button" wire:click="$set('showServiceModal', false)">Batal</x-secondary-button>
                         <x-primary-button type="submit">Simpan Layanan</x-primary-button>
                     </div>
@@ -784,17 +730,17 @@ new class extends Component {
 
     <!-- MODAL: PROJECT FORM -->
     @if ($showProjectModal)
-        <div class="fixed inset-0 bg-slate-900/60 dark:bg-black/70 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-            <div class="bg-white dark:bg-[#161F2E] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-xl text-slate-900 dark:text-white">
-                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white">{{ $projectId ? 'Edit Proyek' : 'Tambah Proyek Baru' }}</h3>
-                    <button wire:click="$set('showProjectModal', false)" class="text-slate-400 hover:text-slate-700 dark:hover:text-white font-bold text-xl cursor-pointer">&times;</button>
+        <div x-data class="fixed inset-0 bg-on-surface/60 z-50 flex items-center justify-center p-4" wire:click.self="$set('showProjectModal', false)" x-on:keydown.escape.window="$wire.set('showProjectModal', false)">
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-xl text-on-surface">
+                <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+                    <h3 class="text-base font-bold text-on-surface">{{ $projectId ? 'Edit Proyek' : 'Tambah Proyek Baru' }}</h3>
+                    <button wire:click="$set('showProjectModal', false)" class="text-on-surface-variant hover:text-on-surface font-bold text-xl cursor-pointer" aria-label="Tutup">&times;</button>
                 </div>
                 <form wire:submit="saveProject" class="space-y-3 text-xs">
                     <div>
                         <x-input-label value="Judul Proyek *" />
                         <x-text-input type="text" wire:model="projectTitle" />
-                        @error('projectTitle') <span class="text-red-500 font-semibold text-[11px]">{{ $message }}</span> @enderror
+                        @error('projectTitle') <span class="text-state-error font-semibold text-[11px]">{{ $message }}</span> @enderror
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
@@ -803,23 +749,23 @@ new class extends Component {
                         </div>
                         <div>
                             <x-input-label value="Kategori *" />
-                            <select wire:model="projectCategory" class="w-full px-3 py-2.5 rounded-lg bg-white dark:bg-[#111722] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-xs focus:border-amber-500 focus:outline-none">
+                            <x-select-input wire:model="projectCategory">
                                 <option value="E-Commerce">E-Commerce</option>
                                 <option value="Custom Web App">Custom Web App</option>
                                 <option value="Company Profile">Company Profile</option>
                                 <option value="SaaS App">SaaS App</option>
-                            </select>
+                            </x-select-input>
                         </div>
                     </div>
                     <div>
                         <x-input-label value="Deskripsi Proyek *" />
-                        <textarea wire:model="projectDescription" rows="3" class="w-full px-3.5 py-2.5 rounded-lg bg-white dark:bg-[#111722] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-xs focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:outline-none"></textarea>
-                        @error('projectDescription') <span class="text-red-500 font-semibold text-[11px]">{{ $message }}</span> @enderror
+                        <x-textarea-input wire:model="projectDescription" :rows="3" />
+                        @error('projectDescription') <span class="text-state-error font-semibold text-[11px]">{{ $message }}</span> @enderror
                     </div>
                     <div>
                         <x-input-label value="URL Gambar Thumbnail" />
                         <x-text-input type="text" wire:model="projectThumbnail" placeholder="https://..." />
-                        @error('projectThumbnail') <span class="text-red-500 font-semibold text-[11px]">{{ $message }}</span> @enderror
+                        @error('projectThumbnail') <span class="text-state-error font-semibold text-[11px]">{{ $message }}</span> @enderror
                     </div>
                     <div>
                         <x-input-label value="URL Live Website" />
@@ -832,12 +778,12 @@ new class extends Component {
                         </div>
                         <div class="flex items-center pt-4">
                             <label class="flex items-center space-x-2 cursor-pointer">
-                                <input type="checkbox" wire:model="projectIsFeatured" class="rounded border-slate-300 dark:border-slate-700 text-amber-600 focus:ring-amber-500">
-                                <span class="font-semibold text-xs text-slate-700 dark:text-slate-300">Featured di Home</span>
+                                <input type="checkbox" wire:model="projectIsFeatured" class="rounded border-outline text-primary focus:ring-primary">
+                                <span class="font-semibold text-xs text-on-surface-variant">Featured di Home</span>
                             </label>
                         </div>
                     </div>
-                    <div class="flex justify-end space-x-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <div class="flex justify-end space-x-2 pt-3 border-t border-outline-variant">
                         <x-secondary-button type="button" wire:click="$set('showProjectModal', false)">Batal</x-secondary-button>
                         <x-primary-button type="submit">Simpan Proyek</x-primary-button>
                     </div>
@@ -848,22 +794,22 @@ new class extends Component {
 
     <!-- MODAL: TEAM MEMBER FORM -->
     @if ($showTeamModal)
-        <div class="fixed inset-0 bg-slate-900/60 dark:bg-black/70 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-            <div class="bg-white dark:bg-[#161F2E] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-xl text-slate-900 dark:text-white">
-                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white">{{ $teamMemberId ? 'Edit Anggota Tim' : 'Tambah Anggota Tim' }}</h3>
-                    <button wire:click="$set('showTeamModal', false)" class="text-slate-400 hover:text-slate-700 dark:hover:text-white font-bold text-xl cursor-pointer">&times;</button>
+        <div x-data class="fixed inset-0 bg-on-surface/60 z-50 flex items-center justify-center p-4" wire:click.self="$set('showTeamModal', false)" x-on:keydown.escape.window="$wire.set('showTeamModal', false)">
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-xl text-on-surface">
+                <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+                    <h3 class="text-base font-bold text-on-surface">{{ $teamMemberId ? 'Edit Anggota Tim' : 'Tambah Anggota Tim' }}</h3>
+                    <button wire:click="$set('showTeamModal', false)" class="text-on-surface-variant hover:text-on-surface font-bold text-xl cursor-pointer" aria-label="Tutup">&times;</button>
                 </div>
                 <form wire:submit="saveTeamMember" class="space-y-3 text-xs">
                     <div>
                         <x-input-label value="Nama Lengkap *" />
                         <x-text-input type="text" wire:model="teamName" />
-                        @error('teamName') <span class="text-red-500 font-semibold text-[11px]">{{ $message }}</span> @enderror
+                        @error('teamName') <span class="text-state-error font-semibold text-[11px]">{{ $message }}</span> @enderror
                     </div>
                     <div>
                         <x-input-label value="Jabatan / Posisi *" />
                         <x-text-input type="text" wire:model="teamPosition" placeholder="Lead Software Engineer" />
-                        @error('teamPosition') <span class="text-red-500 font-semibold text-[11px]">{{ $message }}</span> @enderror
+                        @error('teamPosition') <span class="text-state-error font-semibold text-[11px]">{{ $message }}</span> @enderror
                     </div>
                     <div>
                         <x-input-label value="URL Foto Profil" />
@@ -871,7 +817,7 @@ new class extends Component {
                     </div>
                     <div>
                         <x-input-label value="Biografi Singkat" />
-                        <textarea wire:model="teamBio" rows="3" class="w-full px-3.5 py-2.5 rounded-lg bg-white dark:bg-[#111722] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-xs focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:outline-none"></textarea>
+                        <x-textarea-input wire:model="teamBio" :rows="3" />
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
@@ -883,7 +829,7 @@ new class extends Component {
                             <x-text-input type="number" wire:model="teamOrder" />
                         </div>
                     </div>
-                    <div class="flex justify-end space-x-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <div class="flex justify-end space-x-2 pt-3 border-t border-outline-variant">
                         <x-secondary-button type="button" wire:click="$set('showTeamModal', false)">Batal</x-secondary-button>
                         <x-primary-button type="submit">Simpan Anggota Tim</x-primary-button>
                     </div>
@@ -894,40 +840,40 @@ new class extends Component {
 
     <!-- MODAL: VIEW MESSAGE -->
     @if ($showMessageModal && $selectedMessage)
-        <div class="fixed inset-0 bg-slate-900/60 dark:bg-black/70 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-            <div class="bg-white dark:bg-[#161F2E] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-xl text-slate-900 dark:text-white">
-                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Detail Pesan Masuk</h3>
-                    <button wire:click="$set('showMessageModal', false)" class="text-slate-400 hover:text-slate-700 dark:hover:text-white font-bold text-xl cursor-pointer">&times;</button>
+        <div x-data class="fixed inset-0 bg-on-surface/60 z-50 flex items-center justify-center p-4" wire:click.self="$set('showMessageModal', false)" x-on:keydown.escape.window="$wire.set('showMessageModal', false)">
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-xl text-on-surface">
+                <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+                    <h3 class="text-base font-bold text-on-surface">Detail Pesan Masuk</h3>
+                    <button wire:click="$set('showMessageModal', false)" class="text-on-surface-variant hover:text-on-surface font-bold text-xl cursor-pointer" aria-label="Tutup">&times;</button>
                 </div>
                 <div class="space-y-3 text-xs">
                     <div>
-                        <span class="text-slate-500 dark:text-slate-400 block font-semibold uppercase text-[10px]">Pengirim</span>
-                        <span class="text-slate-900 dark:text-white font-bold text-sm">{{ $selectedMessage->name }}</span>
-                        <span class="text-slate-500">({{ $selectedMessage->email }})</span>
+                        <span class="text-on-surface-variant block font-semibold uppercase text-[10px]">Pengirim</span>
+                        <span class="text-on-surface font-bold text-sm">{{ $selectedMessage->name }}</span>
+                        <span class="text-on-surface-variant">({{ $selectedMessage->email }})</span>
                     </div>
                     @if ($selectedMessage->phone)
                         <div>
-                            <span class="text-slate-500 dark:text-slate-400 block font-semibold uppercase text-[10px]">Nomor WhatsApp</span>
-                            <span class="text-amber-700 dark:text-amber-400 font-bold">{{ $selectedMessage->phone }}</span>
-                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $selectedMessage->phone) }}" target="_blank" class="ml-2 text-emerald-600 dark:text-emerald-400 underline font-semibold">Buka WhatsApp ↗</a>
+                            <span class="text-on-surface-variant block font-semibold uppercase text-[10px]">Nomor WhatsApp</span>
+                            <span class="text-primary font-bold">{{ $selectedMessage->phone }}</span>
+                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $selectedMessage->phone) }}" target="_blank" class="ml-2 text-state-success underline font-semibold">Buka WhatsApp &#8599;</a>
                         </div>
                     @endif
                     <div>
-                        <span class="text-slate-500 dark:text-slate-400 block font-semibold uppercase text-[10px]">Subjek</span>
-                        <span class="text-slate-900 dark:text-white font-semibold">{{ $selectedMessage->subject ?: 'Tanpa Subjek' }}</span>
+                        <span class="text-on-surface-variant block font-semibold uppercase text-[10px]">Subjek</span>
+                        <span class="text-on-surface font-semibold">{{ $selectedMessage->subject ?: 'Tanpa Subjek' }}</span>
                     </div>
                     <div>
-                        <span class="text-slate-500 dark:text-slate-400 block font-semibold uppercase text-[10px] mb-1">Isi Pesan</span>
-                        <div class="bg-slate-50 dark:bg-[#111722] p-3.5 rounded-lg text-slate-800 dark:text-slate-200 leading-relaxed border border-slate-200 dark:border-slate-800 whitespace-pre-wrap">
+                        <span class="text-on-surface-variant block font-semibold uppercase text-[10px] mb-1">Isi Pesan</span>
+                        <div class="bg-surface-container p-3.5 rounded-lg text-on-surface leading-relaxed border border-outline-variant whitespace-pre-wrap">
                             {{ $selectedMessage->message }}
                         </div>
                     </div>
-                    <div class="text-[10px] text-slate-400 pt-1">
+                    <div class="text-[10px] text-on-surface-variant pt-1">
                         Diterima: {{ $selectedMessage->created_at->format('d F Y, H:i:s') }}
                     </div>
                 </div>
-                <div class="flex justify-between items-center pt-3 border-t border-slate-100 dark:border-slate-800">
+                <div class="flex justify-between items-center pt-3 border-t border-outline-variant">
                     <x-danger-button wire:click="deleteMessage({{ $selectedMessage->id }})" wire:confirm="Hapus pesan ini?">Hapus Pesan</x-danger-button>
                     <x-secondary-button wire:click="$set('showMessageModal', false)">Tutup</x-secondary-button>
                 </div>
@@ -937,23 +883,23 @@ new class extends Component {
 
     <!-- Tech Stack Editor Modal -->
     @if ($showTechStackEditor)
-        <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 dark:bg-black/70 backdrop-blur-xs" wire:click.self="$set('showTechStackEditor', false)">
-            <div class="bg-white dark:bg-[#161F2E] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 w-full max-w-md mx-4 shadow-xl space-y-4 text-slate-900 dark:text-white">
-                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Edit Daftar Tech Stack</h3>
-                    <button wire:click="$set('showTechStackEditor', false)" class="text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold leading-none cursor-pointer">&times;</button>
+        <div x-data class="fixed inset-0 z-50 flex items-center justify-center bg-on-surface/60" wire:click.self="$set('showTechStackEditor', false)" x-on:keydown.escape.window="$wire.set('showTechStackEditor', false)">
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 w-full max-w-md mx-4 shadow-xl space-y-4 text-on-surface">
+                <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+                    <h3 class="text-base font-bold text-on-surface">Edit Daftar Tech Stack</h3>
+                    <button wire:click="$set('showTechStackEditor', false)" class="text-on-surface-variant hover:text-on-surface text-xl font-bold leading-none cursor-pointer" aria-label="Tutup">&times;</button>
                 </div>
-                <p class="text-xs text-slate-500">Tuliskan satu nama teknologi per baris. Daftar ini akan ditampilkan di banner beranda.</p>
+                <p class="text-xs text-on-surface-variant">Tuliskan satu nama teknologi per baris. Daftar ini akan ditampilkan di banner beranda.</p>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">Teknologi (1 Per Baris)</label>
-                    <textarea
+                    <x-input-label value="Teknologi (1 Per Baris)" class="uppercase tracking-wider" />
+                    <x-textarea-input
                         wire:model="editingTechStack"
-                        rows="7"
-                        class="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#111722] border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white text-xs font-mono focus:outline-none focus:border-amber-500 resize-none leading-relaxed"
+                        :rows="7"
+                        class="font-mono leading-relaxed"
                         placeholder="Laravel&#10;Livewire&#10;Tailwind CSS&#10;Vue.js&#10;PostgreSQL"
-                    ></textarea>
+                    />
                 </div>
-                <div class="flex gap-2.5 pt-1 border-t border-slate-100 dark:border-slate-800">
+                <div class="flex gap-2.5 pt-1 border-t border-outline-variant">
                     <x-secondary-button class="flex-1" wire:click="$set('showTechStackEditor', false)">Batal</x-secondary-button>
                     <x-primary-button class="flex-1" wire:click="saveTechStack">Simpan</x-primary-button>
                 </div>

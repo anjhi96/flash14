@@ -65,14 +65,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @fluxAppearance
     </head>
-    <body class="font-sans antialiased bg-[#F8FAFC] dark:bg-[#0B0F17] text-slate-900 dark:text-slate-100 transition-colors duration-200">
-        <div class="min-h-screen bg-[#F8FAFC] dark:bg-[#0B0F17] text-slate-900 dark:text-slate-100 flex flex-col justify-between">
+    <body class="font-sans antialiased bg-surface text-on-surface transition-colors duration-200">
+        <div class="min-h-screen bg-surface text-on-surface flex flex-col justify-between">
             <div>
                 <livewire:layout.navigation />
 
                 <!-- Page Heading -->
                 @if (isset($header))
-                    <header class="bg-white dark:bg-[#111722] border-b border-slate-200 dark:border-slate-800">
+                    <header class="bg-surface-container-lowest border-b border-outline-variant">
                         <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
                             {{ $header }}
                         </div>
