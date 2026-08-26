@@ -1,83 +1,83 @@
-<footer class="bg-white dark:bg-[#080B11] text-slate-700 dark:text-gray-300 border-t border-slate-200/80 dark:border-slate-800/80 pt-16 pb-12 transition-colors duration-300">
+<footer class="bg-slate-50 dark:bg-[#0B0F17] text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800/80 pt-14 pb-10 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <!-- Brand Info -->
-            <div class="space-y-4 md:col-span-1">
-                <div class="flex items-center space-x-2.5">
-                    <img src="{{ asset('flash.png') }}" alt="FlashDev Logo" class="h-10 w-auto drop-shadow-[0_2px_6px_rgba(245,184,0,0.3)] dark:drop-shadow-[0_0_10px_rgba(255,184,0,0.4)]">
-                    <span class="text-xl font-extrabold text-slate-900 dark:text-white tracking-wider">FLASH<span class="text-amber-500 dark:text-amber-400">DEV</span></span>
+            <div class="space-y-3.5 md:col-span-1">
+                <div class="flex items-center space-x-2">
+                    <img src="{{ asset('flash.png') }}" alt="FlashDev Logo" class="h-8 w-auto">
+                    <span class="text-lg font-bold text-slate-900 dark:text-white tracking-tight">FLASH<span class="text-amber-600 dark:text-amber-400">DEV</span></span>
                 </div>
-                <p class="text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
-                    Agensi pengembang software & website modern. Kami membantu akselerasi transformasi digital bisnis Anda dengan solusi teknologi performa tinggi.
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Solusi rekayasa perangkat lunak, sistem web custom, dan platform digital berkinerja tinggi untuk akselerasi bisnis Anda.
                 </p>
-                <div class="flex space-x-4 pt-2">
-                    <a href="#" class="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-amber-500 hover:text-slate-950 text-slate-600 dark:text-gray-400 flex items-center justify-center transition-all duration-300 shadow-2xs">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                <div class="flex space-x-2 pt-1">
+                    <a href="#" class="w-8 h-8 rounded-lg bg-white dark:bg-[#161F2E] border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-bold">X</span>
                     </a>
-                    <a href="#" class="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-amber-500 hover:text-slate-950 text-slate-600 dark:text-gray-400 flex items-center justify-center transition-all duration-300 shadow-2xs">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    <a href="#" class="w-8 h-8 rounded-lg bg-white dark:bg-[#161F2E] border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-bold">in</span>
                     </a>
-                    <a href="#" class="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-amber-500 hover:text-slate-950 text-slate-600 dark:text-gray-400 flex items-center justify-center transition-all duration-300 shadow-2xs">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    <a href="#" class="w-8 h-8 rounded-lg bg-white dark:bg-[#161F2E] border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-bold">IG</span>
                     </a>
                 </div>
             </div>
 
             <!-- Quick Links -->
             <div>
-                <h4 class="text-slate-900 dark:text-white font-bold mb-4 text-base tracking-wide flex items-center gap-2">
-                    <span class="w-1.5 h-4 bg-amber-500 dark:bg-amber-400 rounded-full"></span> Menu Utama
+                <h4 class="text-slate-900 dark:text-slate-100 font-semibold mb-3 text-xs uppercase tracking-wider">
+                    Navigasi
                 </h4>
-                <ul class="space-y-2.5 text-sm">
+                <ul class="space-y-2 text-xs">
                     <li><a href="{{ route('home') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Beranda</a></li>
-                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Layanan Agensi</a></li>
+                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Layanan Spesialis</a></li>
                     <li><a href="{{ route('portfolio') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Portofolio Proyek</a></li>
-                    <li><a href="{{ route('about') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Tentang Kami</a></li>
+                    <li><a href="{{ route('about') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Profil Tim & Perusahaan</a></li>
                     <li><a href="{{ route('contact') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Kontak & Konsultasi</a></li>
                 </ul>
             </div>
 
             <!-- Services Links -->
             <div>
-                <h4 class="text-slate-900 dark:text-white font-bold mb-4 text-base tracking-wide flex items-center gap-2">
-                    <span class="w-1.5 h-4 bg-amber-500 dark:bg-amber-400 rounded-full"></span> Layanan Spesialis
+                <h4 class="text-slate-900 dark:text-slate-100 font-semibold mb-3 text-xs uppercase tracking-wider">
+                    Layanan
                 </h4>
-                <ul class="space-y-2.5 text-sm">
-                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Website Perusahaan</a></li>
-                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Platform E-Commerce</a></li>
-                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Custom SaaS & Web App</a></li>
-                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">UI/UX & Design System</a></li>
-                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Website Maintenance</a></li>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Aplikasi Web Enterprise</a></li>
+                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Sistem E-Commerce B2B/B2C</a></li>
+                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Custom SaaS Platform</a></li>
+                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">UI/UX & Design Systems</a></li>
+                    <li><a href="{{ route('services') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Maintenance & Cloud Ops</a></li>
                 </ul>
             </div>
 
             <!-- Contact Summary -->
             <div>
-                <h4 class="text-slate-900 dark:text-white font-bold mb-4 text-base tracking-wide flex items-center gap-2">
-                    <span class="w-1.5 h-4 bg-amber-500 dark:bg-amber-400 rounded-full"></span> Hubungi Kami
+                <h4 class="text-slate-900 dark:text-slate-100 font-semibold mb-3 text-xs uppercase tracking-wider">
+                    Kontak
                 </h4>
-                <ul class="space-y-3 text-sm">
-                    <li class="flex items-start space-x-3">
-                        <svg class="w-5 h-5 text-amber-500 dark:text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <ul class="space-y-2 text-xs">
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[16px] text-amber-600 dark:text-amber-400">location_on</span>
                         <span>Karawang, Indonesia</span>
                     </li>
-                    <li class="flex items-center space-x-3">
-                        <svg class="w-5 h-5 text-amber-500 dark:text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[16px] text-amber-600 dark:text-amber-400">mail</span>
                         <span>hallo.flashdev@flash14.id</span>
                     </li>
-                    <li class="flex items-center space-x-3">
-                        <svg class="w-5 h-5 text-amber-500 dark:text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h32a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"/></svg>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[16px] text-amber-600 dark:text-amber-400">call</span>
                         <span>+62 821-2861-6647</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <div class="border-t border-slate-200 dark:border-slate-800 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 dark:text-gray-500">
-            <p>&copy; {{ date('Y') }} FlashDev Agency. Hak Cipta Dilindungi Undang-Undang.</p>
-            <div class="flex space-x-6 mt-4 md:mt-0">
-                <a href="#" class="hover:text-slate-800 dark:hover:text-gray-400 transition-colors">Kebijakan Privasi</a>
-                <a href="#" class="hover:text-slate-800 dark:hover:text-gray-400 transition-colors">Syarat & Ketentuan</a>
+        <div class="border-t border-slate-200 dark:border-slate-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+            <p>&copy; {{ date('Y') }} FlashDev. All rights reserved.</p>
+            <div class="flex space-x-5 mt-3 sm:mt-0">
+                <a href="#" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Kebijakan Privasi</a>
+                <a href="#" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Syarat & Ketentuan</a>
                 @guest
                     <a href="{{ route('login') }}" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Admin Login</a>
                 @endguest

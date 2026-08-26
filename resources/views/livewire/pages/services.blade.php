@@ -12,57 +12,59 @@ new class extends Component {
     }
 }; ?>
 
-<div class="bg-[#F8FAFC] dark:bg-[#0B0F17] text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
-    <x-slot name="title">Layanan & Paket Harga Pembuatan Website - FlashDev</x-slot>
-    <x-slot name="description">Jelajahi paket pembuatan website perusahaan, e-commerce, custom SaaS, serta optimasi performa web dari FlashDev.</x-slot>
+<div class="bg-[#F8FAFC] dark:bg-[#0B0F17] text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-200">
+    <x-slot name="title">Layanan & Solusi Rekayasa Software - FlashDev</x-slot>
+    <x-slot name="description">Jelajahi paket solusi pembuatan website enterprise, e-commerce, custom SaaS, serta optimasi performa web dari FlashDev.</x-slot>
+
     <!-- Header Banner -->
-    <section class="py-20 border-b border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-[#080C13] text-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl space-y-4">
-            <span class="px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-400 text-xs font-bold uppercase tracking-wider">
-                Layanan & Paket Agensi
+    <section class="py-14 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111722]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl text-center space-y-3">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30 text-xs font-semibold uppercase tracking-wider">
+                <span class="material-symbols-outlined text-[14px]">terminal</span>
+                Solusi & Layanan Spesialis
             </span>
-            <h1 class="text-4xl sm:text-5xl font-extrabold mt-4 mb-4 text-slate-900 dark:text-white">
-                Solusi Pembuatan Software & Website Professional
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+                Rekayasa Perangkat Lunak & Sistem Web
             </h1>
-            <p class="text-slate-600 dark:text-gray-400 text-lg">
-                Kami menyediakan ekosistem pengembangan software lengkap yang disesuaikan dengan skala dan tujuan bisnis Anda.
+            <p class="text-sm text-slate-600 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
+                Kami menyediakan ekosistem pengembangan perangkat lunak lengkap yang disesuaikan dengan skala dan tujuan strategis bisnis Anda.
             </p>
         </div>
     </section>
 
     <!-- Services Detailed List -->
-    <section class="py-20 border-b border-slate-200/80 dark:border-slate-800/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <section class="py-14 border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             @foreach ($services as $index => $service)
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white dark:bg-[#131A26] p-8 sm:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-amber-400 dark:hover:border-amber-500/30 hover:shadow-md transition-all duration-300">
-                    <div class="lg:col-span-7 space-y-4">
-                        <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30 text-xl font-extrabold">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center bg-white dark:bg-[#111722] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs hover:border-slate-300 dark:hover:border-slate-700 transition-all">
+                    <div class="lg:col-span-7 space-y-3">
+                        <div class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30 text-xs font-mono font-bold">
                             0{{ $index + 1 }}
                         </div>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">{{ $service->title }}</h2>
-                        <p class="text-amber-700 dark:text-amber-400/90 font-semibold text-sm">{{ $service->short_description }}</p>
-                        <p class="text-slate-600 dark:text-gray-300 text-sm leading-relaxed">{{ $service->description }}</p>
-                        <div class="pt-4">
-                            <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center text-sm font-extrabold text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300">
-                                Konsultasikan Layanan Ini
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">{{ $service->title }}</h2>
+                        <p class="text-amber-700 dark:text-amber-400 font-semibold text-xs">{{ $service->short_description }}</p>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">{{ $service->description }}</p>
+                        <div class="pt-2">
+                            <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-1 text-xs font-semibold text-amber-700 dark:text-amber-400 hover:underline">
+                                <span>Konsultasikan Kebutuhan Ini</span>
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
                             </a>
                         </div>
                     </div>
-                    <div class="lg:col-span-5 bg-[#F8FAFC] dark:bg-[#0B0F17] p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-3">
-                        <h4 class="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-widest">Apa Yang Anda Dapatkan:</h4>
-                        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700 dark:text-gray-300">
-                            <li class="flex items-center space-x-2">
-                                <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                <span>Desain kustom & 100% Responsif di Smartphone</span>
+                    <div class="lg:col-span-5 bg-slate-50 dark:bg-[#161F2E] p-5 rounded-lg border border-slate-200 dark:border-slate-800 space-y-2.5">
+                        <h3 class="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Cakupan Layanan:</h3>
+                        <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[16px] text-emerald-600 dark:text-emerald-400">check_circle</span>
+                                <span>Arsitektur modular, aman, & responsif mobile</span>
                             </li>
-                            <li class="flex items-center space-x-2">
-                                <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                <span>Optimasi Kecepatan & SEO Dasar</span>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[16px] text-emerald-600 dark:text-emerald-400">check_circle</span>
+                                <span>Optimasi kinerja basis data & kecepatan muat sistem</span>
                             </li>
-                            <li class="flex items-center space-x-2">
-                                <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                <span>Garansi Maintenance & Support Teknis</span>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[16px] text-emerald-600 dark:text-emerald-400">check_circle</span>
+                                <span>Dokumentasi teknis & garansi pemeliharaan</span>
                             </li>
                         </ul>
                     </div>
@@ -71,14 +73,19 @@ new class extends Component {
         </div>
     </section>
 
-    <!-- FAQ / Consultation CTA -->
-    <section class="py-20 bg-white dark:bg-[#080C13]">
-        <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
-            <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white">Butuh Solusi Kustom untuk Bisnis Anda?</h2>
-            <p class="text-slate-600 dark:text-gray-400">Tim kami siap merancang arsitektur perangkat lunak yang disesuaikan secara khusus dengan alur bisnis perusahaan Anda.</p>
-            <a href="{{ route('contact') }}" wire:navigate class="inline-block px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-600 dark:bg-gradient-to-r dark:from-amber-500 dark:via-amber-400 dark:to-yellow-500 text-slate-950 font-extrabold shadow-md shadow-amber-500/25 hover:scale-105 transition-all duration-300">
-                Diskusi dengan Insinyur Software Kami
-            </a>
+    <!-- Consultation CTA -->
+    <section class="py-14 bg-white dark:bg-[#111722]">
+        <div class="max-w-3xl mx-auto px-4 text-center space-y-4">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Memerlukan Spesifikasi Khusus?</h2>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+                Tim engineer kami siap menyusun cetak biru (*blueprint*) dan estimasi teknis yang disesuaikan dengan arsitektur perusahaan Anda.
+            </p>
+            <div class="pt-2">
+                <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold text-sm transition-colors shadow-xs">
+                    <span>Mulai Diskusi Teknis</span>
+                    <span class="material-symbols-outlined text-[18px]">chat</span>
+                </a>
+            </div>
         </div>
     </section>
 </div>
