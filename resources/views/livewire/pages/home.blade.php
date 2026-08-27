@@ -26,7 +26,7 @@ new class extends Component {
     <section class="relative overflow-hidden pt-16 pb-20 border-b border-outline-variant bg-surface-container-lowest">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-3xl mx-auto space-y-6">
-                <x-badge variant="primary">Engineering & Enterprise Web Solutions</x-badge>
+                
                 <h1 class="text-3xl sm:text-5xl font-bold tracking-tight leading-tight text-on-surface">
                     Bangun Sistem & Website Perusahaan dengan <span class="text-primary">Presisi Tinggi</span>
                 </h1>

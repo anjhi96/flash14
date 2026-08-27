@@ -84,9 +84,9 @@ new class extends Component
                     </button>
                 </div>
 
-                <!-- Settings Dropdown / Auth Links -->
-                <div class="hidden sm:flex sm:items-center">
-                    @auth
+                <!-- Settings Dropdown (only shown when logged in; login itself lives in the footer) -->
+                @auth
+                    <div class="hidden sm:flex sm:items-center">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant text-sm font-semibold rounded-lg text-on-surface-variant bg-surface-container hover:text-on-surface hover:border-outline focus:outline-none transition ease-in-out duration-150 cursor-pointer">
@@ -115,12 +115,8 @@ new class extends Component
                                 </button>
                             </x-slot>
                         </x-dropdown>
-                    @else
-                        <a href="{{ route('login') }}" wire:navigate class="px-3.5 py-1.5 text-sm font-semibold rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
-                            Masuk
-                        </a>
-                    @endauth
-                </div>
+                    </div>
+                @endauth
 
                 <!-- Hamburger Mobile Toggle -->
                 <div class="flex items-center sm:hidden">
@@ -163,9 +159,9 @@ new class extends Component
             @endauth
         </div>
 
-        <!-- Responsive Auth Options -->
-        <div class="pt-3 mt-3 border-t border-outline-variant">
-            @auth
+        <!-- Responsive Auth Options (only shown when logged in; login itself lives in the footer) -->
+        @auth
+            <div class="pt-3 mt-3 border-t border-outline-variant">
                 <div class="px-2 mb-2">
                     <div class="font-semibold text-sm text-on-surface" x-data="{{ json_encode(['name' => auth()->user()->name ?? '']) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
                     <div class="text-xs text-on-surface-variant">{{ auth()->user()->email ?? '' }}</div>
@@ -183,13 +179,7 @@ new class extends Component
                         </x-responsive-nav-link>
                     </button>
                 </div>
-            @else
-                <div class="pt-1">
-                    <a href="{{ route('login') }}" wire:navigate class="block w-full py-2 text-center text-sm font-semibold rounded-lg bg-primary text-on-primary hover:bg-primary-hover">
-                        Masuk ke Akun
-                    </a>
-                </div>
-            @endauth
-        </div>
+            </div>
+        @endauth
     </div>
 </nav>
