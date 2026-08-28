@@ -32,6 +32,7 @@
                     <li><a href="{{ route('home') }}" class="hover:text-primary transition-colors">Beranda</a></li>
                     <li><a href="{{ route('services') }}" class="hover:text-primary transition-colors">Layanan Spesialis</a></li>
                     <li><a href="{{ route('portfolio') }}" class="hover:text-primary transition-colors">Portofolio Proyek</a></li>
+                    <li><a href="{{ route('blog.index') }}" class="hover:text-primary transition-colors">Blog & Tech Insights</a></li>
                     <li><a href="{{ route('about') }}" class="hover:text-primary transition-colors">Profil Tim & Perusahaan</a></li>
                     <li><a href="{{ route('contact') }}" class="hover:text-primary transition-colors">Kontak & Konsultasi</a></li>
                 </ul>

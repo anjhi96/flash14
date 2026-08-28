@@ -11,19 +11,53 @@ new class extends Component {
     public string $message = '';
     public bool $submitted = false;
 
+    // Honeypot: a decoy field real visitors never see or fill in. Bots that
+    // blindly fill every input trip it, so we can quietly drop the submission.
+    public string $website = '';
+
     public function sendMessage(): void
     {
+        if (filled($this->website)) {
+            // Pretend it worked so the bot doesn't learn to avoid this field.
+            $this->reset(['name', 'email', 'phone', 'subject', 'message', 'website']);
+            $this->submitted = true;
+
+            return;
+        }
+
         $validated = $this->validate([
             'name' => 'required|string|min:2|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:30',
             'subject' => 'nullable|string|max:255',
-            'message' => 'required|string|min:5',
+            'message' => 'required|string|min:5|max:5000',
+        ], [
+            'name.required' => 'Nama lengkap wajib diisi.',
+            'name.min' => 'Nama minimal :min karakter.',
+            'name.max' => 'Nama maksimal :max karakter.',
+            'email.required' => 'Alamat email wajib diisi.',
+            'email.email' => 'Format alamat email tidak valid.',
+            'email.max' => 'Alamat email maksimal :max karakter.',
+            'phone.max' => 'Nomor telepon maksimal :max karakter.',
+            'subject.max' => 'Subjek maksimal :max karakter.',
+            'message.required' => 'Rincian kebutuhan proyek wajib diisi.',
+            'message.min' => 'Rincian kebutuhan minimal :min karakter, mohon jelaskan lebih detail.',
+            'message.max' => 'Rincian kebutuhan maksimal :max karakter.',
         ]);
 
-        ContactMessage::create($validated);
+        // Strip any HTML/script tags before persisting — defense in depth on
+        // top of Blade's automatic output escaping.
+        $sanitized = [
+            'name' => trim(strip_tags($validated['name'])),
+            'email' => trim($validated['email']),
+            'phone' => $validated['phone'] ? trim(strip_tags($validated['phone'])) : null,
+            'subject' => $validated['subject'] ? trim(strip_tags($validated['subject'])) : null,
+            'message' => trim(strip_tags($validated['message'])),
+        ];
 
-        $this->reset(['name', 'email', 'phone', 'subject', 'message']);
+        ContactMessage::create($sanitized);
+
+        $this->reset(['name', 'email', 'phone', 'subject', 'message', 'website']);
         $this->submitted = true;
     }
 }; ?>
@@ -97,7 +131,13 @@ new class extends Component {
                         </div>
                     </div>
                 @else
-                    <form wire:submit="sendMessage" class="space-y-4 text-xs">
+                    <form wire:submit="sendMessage" class="relative space-y-4 text-xs">
+                        <!-- Honeypot field: hidden from real visitors, left for bots to fill -->
+                        <div class="absolute left-[-9999px] top-0" aria-hidden="true">
+                            <label for="website">Biarkan kosong</label>
+                            <input type="text" id="website" wire:model="website" tabindex="-1" autocomplete="off">
+                        </div>
+
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <x-input-label value="Nama Lengkap *" class="uppercase" />

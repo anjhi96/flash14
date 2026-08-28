@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             TeamMemberSeeder::class,
             PageSectionSeeder::class,
+            BlogSeeder::class,
         ]);
     }
 }

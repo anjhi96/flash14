@@ -15,16 +15,19 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <script>
-            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        </script>
-
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- Same private-key theme system as the main layout (see layouts/app.blade.php) -->
+        <script>
+            function flashdevApplyTheme() {
+                const stored = localStorage.getItem('flashdev-theme');
+                const isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                document.documentElement.classList.toggle('dark', isDark);
+            }
+            flashdevApplyTheme();
+            document.addEventListener('livewire:navigated', flashdevApplyTheme);
+        </script>
     </head>
     <body class="font-sans text-on-surface antialiased bg-surface">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-8 sm:pt-0 bg-surface px-4">

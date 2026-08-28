@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class PageSection extends Model
 {
@@ -15,16 +16,24 @@ class PageSection extends Model
         'settings',
     ];
 
-    protected $casts = [
-        'is_enabled' => 'boolean',
-        'settings'   => 'array',
-        'order'      => 'integer',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_enabled' => 'boolean',
+            'settings' => 'array',
+            'order' => 'integer',
+        ];
+    }
 
     /**
      * Get sections for a given page, keyed by section_key.
      */
-    public static function forPage(string $page = 'home'): \Illuminate\Support\Collection
+    public static function forPage(string $page = 'home'): Collection
     {
         return static::where('page', $page)
             ->orderBy('order')

@@ -8,11 +8,14 @@ Volt::route('/layanan', 'pages.services')->name('services');
 Volt::route('/portfolio', 'pages.portfolio')->name('portfolio');
 Volt::route('/tentang', 'pages.about')->name('about');
 Volt::route('/kontak', 'pages.contact')->name('contact');
+Volt::route('/blog', 'pages.blog.index')->name('blog.index');
+Volt::route('/blog/{slug}', 'pages.blog.show')->name('blog.show');
 
 Route::get('dashboard', function () {
     if (auth()->user()?->role === 'admin') {
         return redirect()->route('admin.dashboard');
     }
+
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -25,4 +28,3 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 });
 
 require __DIR__.'/auth.php';
-

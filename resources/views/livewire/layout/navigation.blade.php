@@ -40,6 +40,9 @@ new class extends Component
                     <x-nav-link :href="route('portfolio')" :active="request()->routeIs('portfolio')" wire:navigate>
                         {{ __('Portfolio') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('blog.index')" :active="request()->routeIs('blog.*')" wire:navigate>
+                        {{ __('Blog') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('about')" :active="request()->routeIs('about')" wire:navigate>
                         {{ __('Tentang') }}
                     </x-nav-link>
@@ -66,16 +69,11 @@ new class extends Component
             <div class="flex items-center space-x-2">
                 <!-- Theme Toggle Button -->
                 <div x-data="{
-                    darkMode: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
+                    darkMode: localStorage.getItem('flashdev-theme') === 'dark' || (!localStorage.getItem('flashdev-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches),
                     toggle() {
                         this.darkMode = !this.darkMode;
-                        if (this.darkMode) {
-                            document.documentElement.classList.add('dark');
-                            localStorage.setItem('theme', 'dark');
-                        } else {
-                            document.documentElement.classList.remove('dark');
-                            localStorage.setItem('theme', 'light');
-                        }
+                        document.documentElement.classList.toggle('dark', this.darkMode);
+                        localStorage.setItem('flashdev-theme', this.darkMode ? 'dark' : 'light');
                     }
                 }">
                     <button @click="toggle()" type="button" class="w-9 h-9 flex items-center justify-center rounded-lg border border-outline-variant bg-surface-container text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors cursor-pointer" title="Toggle Theme">
@@ -139,6 +137,9 @@ new class extends Component
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('portfolio')" :active="request()->routeIs('portfolio')" wire:navigate>
                 {{ __('Portfolio') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('blog.index')" :active="request()->routeIs('blog.*')" wire:navigate>
+                {{ __('Blog') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('about')" :active="request()->routeIs('about')" wire:navigate>
                 {{ __('Tentang') }}

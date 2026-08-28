@@ -52,18 +52,27 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Inline script to prevent FOUC for theme toggle -->
-        <script>
-            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        </script>
-
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @fluxAppearance
+
+        <!--
+            Deliberately NOT using Flux's own `flux.appearance` storage key /
+            @fluxAppearance here: flux.js (loaded below via @fluxScripts) has
+            its own internal Livewire-navigate hook that unconditionally
+            resets appearance to "system" on every wire:navigate — it's meant
+            to be driven through Flux's own component API, which this app
+            doesn't use anywhere, so it just fights any manual write to that
+            key. Using a private key Flux never touches avoids that entirely.
+        -->
+        <script>
+            function flashdevApplyTheme() {
+                const stored = localStorage.getItem('flashdev-theme');
+                const isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                document.documentElement.classList.toggle('dark', isDark);
+            }
+            flashdevApplyTheme();
+            document.addEventListener('livewire:navigated', flashdevApplyTheme);
+        </script>
     </head>
     <body class="font-sans antialiased bg-surface text-on-surface transition-colors duration-200">
         <div class="min-h-screen bg-surface text-on-surface flex flex-col justify-between">

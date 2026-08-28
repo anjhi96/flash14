@@ -22,7 +22,7 @@ class ProjectSeeder extends Seeder
                 'thumbnail' => 'https://images.unsplash.com/photo-1556742049-0a67daf40955?auto=format&fit=crop&w=800&q=80',
                 'gallery' => json_encode([
                     'https://images.unsplash.com/photo-1556742049-0a67daf40955?auto=format&fit=crop&w=800&q=80',
-                    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'
+                    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
                 ]),
                 'project_url' => 'https://example.com/nexamart',
                 'is_featured' => true,
@@ -36,7 +36,7 @@ class ProjectSeeder extends Seeder
                 'description' => 'Sistem reservasi dokter, rekam medis elektronik (EMR), serta manajemen inventaris apotek terpadu berbasis cloud.',
                 'thumbnail' => 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
                 'gallery' => json_encode([
-                    'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80'
+                    'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
                 ]),
                 'project_url' => 'https://example.com/omnicare',
                 'is_featured' => true,
@@ -50,7 +50,7 @@ class ProjectSeeder extends Seeder
                 'description' => 'Website profil perusahaan investasi dengan desain ultra-modern, animasi interaktif, serta dukungan multi-bahasa.',
                 'thumbnail' => 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
                 'gallery' => json_encode([
-                    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'
+                    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
                 ]),
                 'project_url' => 'https://example.com/zenith',
                 'is_featured' => true,
@@ -64,7 +64,7 @@ class ProjectSeeder extends Seeder
                 'description' => 'Aplikasi SaaS kolaborasi tim dengan fitur Kanban board, time tracking, laporan otomatis, dan integrasi Slack.',
                 'thumbnail' => 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
                 'gallery' => json_encode([
-                    'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80'
+                    'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
                 ]),
                 'project_url' => 'https://example.com/pulseflow',
                 'is_featured' => false,
@@ -78,7 +78,7 @@ class ProjectSeeder extends Seeder
                 'description' => 'Platform kursus online dengan fitur video streaming, kuis interaktif, sertifikat otomatis, dan sistem forum diskusi.',
                 'thumbnail' => 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80',
                 'gallery' => json_encode([
-                    'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80'
+                    'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80',
                 ]),
                 'project_url' => 'https://example.com/edupro',
                 'is_featured' => false,
