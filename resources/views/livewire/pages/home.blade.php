@@ -104,6 +104,9 @@ new class extends Component {
                         <div class="space-y-2">
                             <h3 class="text-base font-bold text-on-surface">{{ $service->title }}</h3>
                             <p class="text-xs text-on-surface-variant leading-relaxed">{{ $service->short_description }}</p>
+                            @if ($service->starting_price)
+                                <x-badge variant="primary">Mulai {{ $service->starting_price }}</x-badge>
+                            @endif
                         </div>
                         <div class="pt-2 border-t border-outline-variant">
                             <a href="{{ route('services') }}" wire:navigate class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline">

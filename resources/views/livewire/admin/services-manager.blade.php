@@ -10,6 +10,7 @@ new class extends Component {
     public string $serviceSlug = '';
     public string $serviceIcon = 'code-bracket';
     public string $serviceShortDescription = '';
+    public string $serviceStartingPrice = '';
     public string $serviceDescription = '';
     public int $serviceOrder = 0;
     public bool $serviceIsActive = true;
@@ -28,11 +29,12 @@ new class extends Component {
             $this->serviceSlug = $s->slug;
             $this->serviceIcon = $s->icon ?? 'code-bracket';
             $this->serviceShortDescription = $s->short_description;
+            $this->serviceStartingPrice = $s->starting_price ?? '';
             $this->serviceDescription = $s->description;
             $this->serviceOrder = $s->order;
             $this->serviceIsActive = $s->is_active;
         } else {
-            $this->reset(['serviceId', 'serviceTitle', 'serviceSlug', 'serviceShortDescription', 'serviceDescription']);
+            $this->reset(['serviceId', 'serviceTitle', 'serviceSlug', 'serviceShortDescription', 'serviceStartingPrice', 'serviceDescription']);
             $this->serviceIcon = 'code-bracket';
             $this->serviceOrder = Service::count() + 1;
             $this->serviceIsActive = true;
@@ -46,6 +48,7 @@ new class extends Component {
             'serviceTitle' => 'required|string|max:255',
             'serviceIcon' => 'nullable|string|max:100',
             'serviceShortDescription' => 'required|string|max:255',
+            'serviceStartingPrice' => 'nullable|string|max:50',
             'serviceDescription' => 'required|string',
             'serviceOrder' => 'required|integer',
             'serviceIsActive' => 'required|boolean',
@@ -60,6 +63,7 @@ new class extends Component {
                 'slug' => $slug,
                 'icon' => $this->serviceIcon ?: 'code-bracket',
                 'short_description' => $this->serviceShortDescription,
+                'starting_price' => $this->serviceStartingPrice ?: null,
                 'description' => $this->serviceDescription,
                 'order' => $this->serviceOrder,
                 'is_active' => $this->serviceIsActive,
@@ -115,6 +119,7 @@ new class extends Component {
                     <th class="py-3 px-4 w-16">Urutan</th>
                     <th class="py-3 px-4">Judul Layanan</th>
                     <th class="py-3 px-4">Deskripsi Singkat</th>
+                    <th class="py-3 px-4 w-32">Harga Mulai</th>
                     <th class="py-3 px-4 w-28">Status</th>
                     <th class="py-3 px-4 w-36 text-right">Aksi</th>
                 </tr>
@@ -125,6 +130,7 @@ new class extends Component {
                         <td class="py-3 px-4 font-mono font-semibold text-on-surface-variant">{{ $s->order }}</td>
                         <td class="py-3 px-4 font-bold text-on-surface">{{ $s->title }}</td>
                         <td class="py-3 px-4 text-on-surface-variant max-w-sm truncate">{{ $s->short_description }}</td>
+                        <td class="py-3 px-4 font-mono font-semibold text-primary whitespace-nowrap">{{ $s->starting_price ?: '—' }}</td>
                         <td class="py-3 px-4">
                             <button type="button" wire:click="toggleServiceActive({{ $s->id }})" class="cursor-pointer">
                                 <x-badge :variant="$s->is_active ? 'success' : 'neutral'">
@@ -164,6 +170,11 @@ new class extends Component {
                         <x-input-label value="Deskripsi Singkat *" />
                         <x-text-input type="text" wire:model="serviceShortDescription" />
                         @error('serviceShortDescription') <span class="text-state-error font-semibold text-[11px]">{{ $message }}</span> @enderror
+                    </div>
+                    <div>
+                        <x-input-label value="Estimasi Harga Mulai Dari" />
+                        <x-text-input type="text" wire:model="serviceStartingPrice" placeholder="Contoh: Rp 2.900.000" />
+                        @error('serviceStartingPrice') <span class="text-state-error font-semibold text-[11px]">{{ $message }}</span> @enderror
                     </div>
                     <div>
                         <x-input-label value="Deskripsi Lengkap *" />

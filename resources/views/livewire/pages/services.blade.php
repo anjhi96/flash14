@@ -39,6 +39,12 @@ new class extends Component {
                         <h2 class="text-xl sm:text-2xl font-bold text-on-surface">{{ $service->title }}</h2>
                         <p class="text-primary font-semibold text-xs">{{ $service->short_description }}</p>
                         <p class="text-on-surface-variant text-xs leading-relaxed">{{ $service->description }}</p>
+                        @if ($service->starting_price)
+                            <div class="flex items-baseline gap-1.5 pt-2">
+                                <span class="text-xs text-on-surface-variant font-medium">Mulai dari</span>
+                                <span class="text-lg sm:text-xl font-extrabold text-primary font-mono">{{ $service->starting_price }}</span>
+                            </div>
+                        @endif
                         <div class="pt-2">
                             <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline">
                                 <span>Konsultasikan Kebutuhan Ini</span>
