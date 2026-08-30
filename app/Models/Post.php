@@ -16,6 +16,7 @@ class Post extends Model
         'author_id', 'category_id', 'title', 'slug', 'excerpt', 'body',
         'cover_image', 'status', 'published_at', 'views_count', 'likes_count',
         'reading_time', 'meta_title', 'meta_description', 'is_featured',
+        'source_url', 'source_name', 'is_ai_generated',
     ];
 
     /**
@@ -28,6 +29,7 @@ class Post extends Model
         return [
             'published_at' => 'datetime',
             'is_featured' => 'boolean',
+            'is_ai_generated' => 'boolean',
             'views_count' => 'integer',
             'likes_count' => 'integer',
             'reading_time' => 'integer',
@@ -62,6 +64,11 @@ class Post extends Model
     public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('is_featured', true);
+    }
+
+    public function scopeAiGenerated(Builder $query): Builder
+    {
+        return $query->where('is_ai_generated', true);
     }
 
     public function scopeByCategory(Builder $query, string $slug): Builder

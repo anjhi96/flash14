@@ -17,6 +17,7 @@ new class extends Component {
     public string $search = '';
     public string $filterCategory = '';
     public string $filterStatus = '';
+    public bool $filterAiOnly = false;
 
     // Editor state
     public ?int $postId = null;
@@ -48,6 +49,11 @@ new class extends Component {
     }
 
     public function updatingFilterStatus(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilterAiOnly(): void
     {
         $this->resetPage();
     }
@@ -189,6 +195,7 @@ new class extends Component {
             ->when($this->search, fn ($q) => $q->search($this->search))
             ->when($this->filterCategory, fn ($q) => $q->byCategory($this->filterCategory))
             ->when($this->filterStatus, fn ($q) => $q->where('status', $this->filterStatus))
+            ->when($this->filterAiOnly, fn ($q) => $q->aiGenerated())
             ->latest('created_at')
             ->paginate(10);
 
@@ -234,6 +241,15 @@ new class extends Component {
         </x-select-input>
     </div>
 
+    <button
+        type="button"
+        wire:click="$toggle('filterAiOnly')"
+        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer {{ $filterAiOnly ? 'bg-primary text-on-primary' : 'bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container border border-outline' }}"
+    >
+        <span class="material-symbols-outlined text-[16px]">smart_toy</span>
+        Hanya AI-Generated
+    </button>
+
     <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-x-auto">
         <table class="w-full text-left text-xs">
             <thead class="bg-surface-container text-on-surface-variant uppercase tracking-wider border-b border-outline-variant font-bold">
@@ -250,7 +266,12 @@ new class extends Component {
                 @forelse ($posts as $post)
                     <tr class="hover:bg-surface-container transition-colors">
                         <td class="py-3 px-4">
-                            <div class="font-bold text-on-surface">{{ $post->title }}</div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-bold text-on-surface">{{ $post->title }}</span>
+                                @if ($post->is_ai_generated)
+                                    <x-badge variant="primary">AI</x-badge>
+                                @endif
+                            </div>
                             <div class="text-on-surface-variant">oleh {{ $post->author?->name ?? '—' }}</div>
                         </td>
                         <td class="py-3 px-4">

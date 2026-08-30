@@ -33,6 +33,14 @@ new class extends Component {
             <span class="material-symbols-outlined text-[18px]">forum</span>
             Komentar
         </x-tab-button>
+        <x-tab-button wire:click="setSubTab('news-sources')" :active="$activeSubTab === 'news-sources'">
+            <span class="material-symbols-outlined text-[18px]">rss_feed</span>
+            Sumber Berita
+        </x-tab-button>
+        <x-tab-button wire:click="setSubTab('auto-blog')" :active="$activeSubTab === 'auto-blog'">
+            <span class="material-symbols-outlined text-[18px]">smart_toy</span>
+            Auto-Blog
+        </x-tab-button>
     </div>
 
     @if ($activeSubTab === 'articles')
@@ -50,6 +58,18 @@ new class extends Component {
     @if ($activeSubTab === 'comments')
         <div class="pt-2">
             <livewire:admin.blog-comments-moderator wire:key="admin-blog-comments-moderator" />
+        </div>
+    @endif
+
+    @if ($activeSubTab === 'news-sources')
+        <div class="pt-2">
+            <livewire:admin.news-sources-manager wire:key="admin-news-sources-manager" />
+        </div>
+    @endif
+
+    @if ($activeSubTab === 'auto-blog')
+        <div class="pt-2">
+            <livewire:admin.news-generation-panel wire:key="admin-news-generation-panel" />
         </div>
     @endif
 </div>
