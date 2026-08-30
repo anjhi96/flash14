@@ -1,17 +1,46 @@
 <?php
 
-use App\Jobs\GenerateNewsArticlesJob;
 use App\Models\NewsGenerationRun;
+use Illuminate\Support\Facades\Artisan;
 use Livewire\Volt\Component;
 
 new class extends Component {
-    public ?string $dispatchMessage = null;
+    /**
+     * Keep the manual button fast & safe from web-server/HTTP timeouts on
+     * shared hosting — the rest of what's due gets picked up by the next
+     * scheduled cron run instead of all being crammed into one click.
+     */
+    private const MANUAL_RUN_LIMIT = 5;
+
+    public ?string $resultMessage = null;
+    public string $resultVariant = 'info';
+
+    public function manualRunLimit(): int
+    {
+        return self::MANUAL_RUN_LIMIT;
+    }
 
     public function generateNow(): void
     {
-        GenerateNewsArticlesJob::dispatch(null, 1, 'manual');
+        // Shared hosting often caps max_execution_time well under what
+        // fetch-many-feeds + call-AI-per-item can take; this raises it for
+        // this request only (harmless if the host doesn't allow overriding it).
+        set_time_limit(300);
 
-        $this->dispatchMessage = 'Proses generate artikel sudah masuk antrean. Pastikan queue worker (php artisan queue:work) sedang berjalan agar segera diproses — riwayat di bawah akan otomatis diperbarui.';
+        Artisan::call('news:generate', [
+            '--limit' => self::MANUAL_RUN_LIMIT,
+            '--triggered-by' => 'manual',
+        ]);
+
+        $run = NewsGenerationRun::where('triggered_by', 'manual')->latest('started_at')->first();
+
+        if ($run?->status === 'success') {
+            $this->resultVariant = 'success';
+            $this->resultMessage = "Selesai. {$run->articles_created} artikel baru dibuat dari {$run->items_fetched} berita yang diambil.";
+        } else {
+            $this->resultVariant = 'error';
+            $this->resultMessage = 'Proses gagal dijalankan. Lihat kolom Keterangan pada riwayat run di bawah untuk detail error.';
+        }
     }
 
     public function with(): array
@@ -20,6 +49,9 @@ new class extends Component {
 
         return [
             'runs' => $runs,
+            // A scheduled run could in theory still be mid-flight if this
+            // page is viewed at that exact moment — poll so it isn't stuck
+            // showing "running" until the admin manually reloads.
             'hasRunning' => $runs->contains('status', 'running'),
         ];
     }
@@ -29,17 +61,17 @@ new class extends Component {
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
             <h3 class="text-lg font-bold text-on-surface">Auto-Blog</h3>
-            <p class="text-xs text-on-surface-variant">Jalankan generate artikel secara manual & pantau riwayat run otomatis.</p>
+            <p class="text-xs text-on-surface-variant">Jalankan generate artikel secara manual (maks. {{ $this->manualRunLimit() }} artikel/klik) & pantau riwayat run otomatis.</p>
         </div>
         <x-primary-button type="button" wire:click="generateNow" wire:loading.attr="disabled" wire:target="generateNow">
             <span class="material-symbols-outlined text-[16px]" wire:loading.remove wire:target="generateNow">bolt</span>
-            <span wire:loading wire:target="generateNow">Mengirim...</span>
+            <span wire:loading wire:target="generateNow">Memproses, mohon tunggu...</span>
             <span wire:loading.remove wire:target="generateNow">Generate Sekarang</span>
         </x-primary-button>
     </div>
 
-    @if ($dispatchMessage)
-        <x-alert variant="info">{{ $dispatchMessage }}</x-alert>
+    @if ($resultMessage)
+        <x-alert :variant="$resultVariant">{{ $resultMessage }}</x-alert>
     @endif
 
     <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden">

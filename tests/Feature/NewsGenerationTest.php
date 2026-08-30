@@ -1,6 +1,5 @@
 <?php
 
-use App\Jobs\GenerateNewsArticlesJob;
 use App\Models\Category;
 use App\Models\NewsGenerationRun;
 use App\Models\NewsSource;
@@ -11,7 +10,6 @@ use App\Services\ArticleGeneratorService;
 use App\Services\NewsFetcherService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Queue;
 use Livewire\Volt\Volt;
 
 function sampleRssXml(string $title = 'Contoh Judul Berita Teknologi', string $link = 'https://fake-feed.test/artikel-contoh'): string
@@ -286,7 +284,7 @@ test('news:generate command saves a new draft post and skips it on a second run'
     expect(NewsGenerationRun::count())->toBe(2);
 });
 
-test('GenerateNewsArticlesJob tolerates a single bad AI call without failing the whole run', function () {
+test('news:generate tolerates a single bad AI call without failing the whole run', function () {
     NewsSource::create([
         'name' => 'Fake Feed', 'url' => 'https://fake-feed.test/tech-rss',
         'type' => 'rss', 'category' => 'tech', 'is_active' => true,
@@ -299,10 +297,8 @@ test('GenerateNewsArticlesJob tolerates a single bad AI call without failing the
     config(['services.groq.key' => null]);
     Http::fake(['fake-feed.test/*' => Http::response(sampleRssXml(), 200)]);
 
-    (new GenerateNewsArticlesJob('tech', 1, 'manual'))->handle(
-        app(NewsFetcherService::class),
-        app(ArticleGeneratorService::class)
-    );
+    $this->artisan('news:generate', ['--topic' => 'tech', '--limit' => 1, '--triggered-by' => 'manual'])
+        ->assertSuccessful();
 
     $run = NewsGenerationRun::first();
     expect($run->triggered_by)->toBe('manual');
@@ -311,14 +307,13 @@ test('GenerateNewsArticlesJob tolerates a single bad AI call without failing the
     expect(Post::count())->toBe(0);
 });
 
-test('GenerateNewsArticlesJob records a failed run when something throws unexpectedly', function () {
+test('news:generate records a failed run when something throws unexpectedly', function () {
     $fetcher = Mockery::mock(NewsFetcherService::class);
     $fetcher->shouldReceive('fetchLatest')->andThrow(new RuntimeException('simulated failure'));
+    $this->instance(NewsFetcherService::class, $fetcher);
 
-    (new GenerateNewsArticlesJob('tech', 1, 'manual'))->handle(
-        $fetcher,
-        app(ArticleGeneratorService::class)
-    );
+    $this->artisan('news:generate', ['--topic' => 'tech', '--limit' => 1, '--triggered-by' => 'manual'])
+        ->assertSuccessful();
 
     $run = NewsGenerationRun::first();
     expect($run->triggered_by)->toBe('manual');
@@ -354,18 +349,30 @@ test('admin can manage news sources through the news-sources-manager component',
     expect(NewsSource::find($source->id))->toBeNull();
 });
 
-test('admin can view the auto-blog panel and dispatch a manual generation run', function () {
+test('admin can run a manual generation directly (no queue) from the auto-blog panel', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin);
 
-    Queue::fake();
+    NewsSource::create([
+        'name' => 'Fake Feed', 'url' => 'https://fake-feed.test/tech-rss',
+        'type' => 'rss', 'category' => 'tech', 'is_active' => true,
+    ]);
+    config(['services.gemini.key' => 'test-gemini-key']);
+    Http::fake([
+        'fake-feed.test/*' => Http::response(sampleRssXml(), 200),
+        'generativelanguage.googleapis.com/*' => Http::response(geminiArticleResponse('Judul dari Panel Admin'), 200),
+    ]);
 
     Volt::test('admin.news-generation-panel')
         ->assertSee('Riwayat Run Terakhir')
         ->call('generateNow')
-        ->assertSet('dispatchMessage', fn ($message) => str_contains($message, 'antrean'));
+        ->assertSet('resultVariant', 'success')
+        ->assertSet('resultMessage', fn ($message) => str_contains($message, 'artikel baru dibuat'));
 
-    Queue::assertPushed(GenerateNewsArticlesJob::class, function ($job) {
-        return $job->triggeredBy === 'manual';
-    });
+    // Ran synchronously, in-process — no queue involved, result is already final.
+    $run = NewsGenerationRun::first();
+    expect($run->triggered_by)->toBe('manual');
+    expect($run->status)->toBe('success');
+    expect($run->articles_created)->toBe(1);
+    $this->assertDatabaseHas('posts', ['title' => 'Judul dari Panel Admin']);
 });
