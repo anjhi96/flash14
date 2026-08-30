@@ -9,7 +9,7 @@ use App\Models\TeamMember;
 use App\Models\User;
 use App\Services\ArticleGeneratorService;
 use App\Services\NewsFetcherService;
-use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
 use Livewire\Volt\Volt;
@@ -34,22 +34,32 @@ function sampleRssXml(string $title = 'Contoh Judul Berita Teknologi', string $l
 XML;
 }
 
-function fakeAnthropicSuccess(): void
+function geminiArticleResponse(string $title, string $content = "## Pendahuluan\n\nIsi artikel dari Gemini.", string $excerpt = 'Ringkasan dari Gemini.'): array
 {
-    Http::fake([
-        'api.anthropic.com/*' => Http::response([
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => json_encode([
-                        'title' => 'Judul Artikel Hasil Tulis Ulang AI',
-                        'content' => "## Pendahuluan\n\nIsi artikel hasil tulis ulang AI untuk keperluan pengujian otomatis.\n\n## Analisis\n\nDampaknya bagi developer Indonesia cukup signifikan.",
-                        'excerpt' => 'Ringkasan singkat artikel hasil AI.',
-                    ]),
-                ],
-            ],
-        ], 200),
-    ]);
+    return [
+        'candidates' => [
+            ['content' => ['parts' => [['text' => json_encode(compact('title', 'content', 'excerpt'))]]]],
+        ],
+    ];
+}
+
+function groqArticleResponse(string $title, string $content = "## Pendahuluan\n\nIsi artikel dari Groq.", string $excerpt = 'Ringkasan dari Groq.'): array
+{
+    return [
+        'choices' => [
+            ['message' => ['content' => json_encode(compact('title', 'content', 'excerpt'))]],
+        ],
+    ];
+}
+
+function fakeGeminiSuccess(string $title = 'Judul Artikel Hasil Gemini'): void
+{
+    Http::fake(['generativelanguage.googleapis.com/*' => Http::response(geminiArticleResponse($title), 200)]);
+}
+
+function fakeGroqSuccess(string $title = 'Judul Artikel Hasil Groq'): void
+{
+    Http::fake(['api.groq.com/*' => Http::response(groqArticleResponse($title), 200)]);
 }
 
 test('NewsFetcherService parses an RSS feed from an active NewsSource', function () {
@@ -125,11 +135,13 @@ test('NewsFetcherService::testFetch previews a feed without persisting anything'
     expect(Post::count())->toBe(0);
 });
 
-test('ArticleGeneratorService returns a structured article on a well-formed response', function () {
-    config(['services.anthropic.key' => 'test-key']);
-    fakeAnthropicSuccess();
+test('ArticleGeneratorService uses the first configured provider (Gemini) when it succeeds', function () {
+    config(['services.gemini.key' => 'test-gemini-key']);
+    config(['services.groq.key' => 'test-groq-key']);
+    config(['services.ai_providers.order' => ['gemini', 'groq']]);
+    fakeGeminiSuccess();
 
-    $result = (new ArticleGeneratorService)->generate([
+    $result = app(ArticleGeneratorService::class)->generate([
         'title' => 'Contoh Judul Berita Teknologi',
         'summary' => 'Ringkasan berita asli.',
         'link' => 'https://fake-feed.test/artikel-contoh',
@@ -137,42 +149,103 @@ test('ArticleGeneratorService returns a structured article on a well-formed resp
     ]);
 
     expect($result)->not->toBeNull();
-    expect($result['title'])->toBe('Judul Artikel Hasil Tulis Ulang AI');
-    expect($result['content'])->toContain('Pendahuluan');
-    expect($result['excerpt'])->toBe('Ringkasan singkat artikel hasil AI.');
+    expect($result['title'])->toBe('Judul Artikel Hasil Gemini');
+    Http::assertSentCount(1); // Groq never called — Gemini already succeeded.
 });
 
-test('ArticleGeneratorService returns null without throwing on a malformed response', function () {
-    config(['services.anthropic.key' => 'test-key']);
+test('ArticleGeneratorService falls back to Groq when Gemini is rate-limited', function () {
+    config(['services.gemini.key' => 'test-gemini-key']);
+    config(['services.groq.key' => 'test-groq-key']);
+    config(['services.ai_providers.order' => ['gemini', 'groq']]);
+
     Http::fake([
-        'api.anthropic.com/*' => Http::response([
-            'content' => [
-                ['type' => 'text', 'text' => 'ini bukan JSON sama sekali'],
-            ],
-        ], 200),
+        'generativelanguage.googleapis.com/*' => Http::response([], 429),
+        'api.groq.com/*' => Http::response(groqArticleResponse('Judul Artikel Hasil Groq'), 200),
     ]);
 
-    $result = (new ArticleGeneratorService)->generate([
-        'title' => 'Judul',
-        'summary' => 'Ringkasan',
-        'link' => 'https://fake-feed.test/artikel',
-        'source_name' => 'Fake Tech Feed',
+    $result = app(ArticleGeneratorService::class)->generate([
+        'title' => 'Judul', 'summary' => 'Ringkasan',
+        'link' => 'https://fake-feed.test/artikel', 'source_name' => 'Fake Feed',
+    ]);
+
+    expect($result)->not->toBeNull();
+    expect($result['title'])->toBe('Judul Artikel Hasil Groq');
+});
+
+test('ArticleGeneratorService falls back to Groq when Gemini fails for a non-rate-limit reason', function () {
+    config(['services.gemini.key' => 'test-gemini-key']);
+    config(['services.groq.key' => 'test-groq-key']);
+    config(['services.ai_providers.order' => ['gemini', 'groq']]);
+
+    Http::fake([
+        'generativelanguage.googleapis.com/*' => Http::response(['error' => 'internal error'], 500),
+        'api.groq.com/*' => Http::response(groqArticleResponse('Judul Artikel Hasil Groq'), 200),
+    ]);
+
+    $result = app(ArticleGeneratorService::class)->generate([
+        'title' => 'Judul', 'summary' => 'Ringkasan',
+        'link' => 'https://fake-feed.test/artikel', 'source_name' => 'Fake Feed',
+    ]);
+
+    expect($result)->not->toBeNull();
+    expect($result['title'])->toBe('Judul Artikel Hasil Groq');
+});
+
+test('ArticleGeneratorService returns null without throwing when every provider fails', function () {
+    config(['services.gemini.key' => 'test-gemini-key']);
+    config(['services.groq.key' => 'test-groq-key']);
+    config(['services.ai_providers.order' => ['gemini', 'groq']]);
+
+    Http::fake([
+        'generativelanguage.googleapis.com/*' => Http::response(['candidates' => [
+            ['content' => ['parts' => [['text' => 'ini bukan JSON sama sekali']]]],
+        ]], 200),
+        'api.groq.com/*' => Http::response(['choices' => [
+            ['message' => ['content' => 'ini juga bukan JSON']],
+        ]], 200),
+    ]);
+
+    $result = app(ArticleGeneratorService::class)->generate([
+        'title' => 'Judul', 'summary' => 'Ringkasan',
+        'link' => 'https://fake-feed.test/artikel', 'source_name' => 'Fake Feed',
     ]);
 
     expect($result)->toBeNull();
 });
 
-test('ArticleGeneratorService returns null when the API key is missing', function () {
-    config(['services.anthropic.key' => null]);
+test('ArticleGeneratorService returns null when no provider has an API key configured', function () {
+    config(['services.gemini.key' => null]);
+    config(['services.groq.key' => null]);
+    config(['services.ai_providers.order' => ['gemini', 'groq']]);
 
-    $result = (new ArticleGeneratorService)->generate([
-        'title' => 'Judul',
-        'summary' => 'Ringkasan',
-        'link' => 'https://fake-feed.test/artikel',
-        'source_name' => 'Fake Tech Feed',
+    $result = app(ArticleGeneratorService::class)->generate([
+        'title' => 'Judul', 'summary' => 'Ringkasan',
+        'link' => 'https://fake-feed.test/artikel', 'source_name' => 'Fake Feed',
     ]);
 
     expect($result)->toBeNull();
+});
+
+test('round_robin strategy rotates which provider is tried first on each call', function () {
+    config(['services.gemini.key' => 'test-gemini-key']);
+    config(['services.groq.key' => 'test-groq-key']);
+    config(['services.ai_providers.order' => ['gemini', 'groq']]);
+    config(['services.ai_providers.strategy' => 'round_robin']);
+    Cache::forget('ai-provider-round-robin-index');
+
+    Http::fake([
+        'generativelanguage.googleapis.com/*' => Http::response(geminiArticleResponse('G1'), 200),
+        'api.groq.com/*' => Http::response(groqArticleResponse('Q1'), 200),
+    ]);
+
+    $service = app(ArticleGeneratorService::class);
+    $newsData = ['title' => 'Judul', 'summary' => 'Ringkasan', 'link' => 'https://fake-feed.test/a', 'source_name' => 'Fake'];
+
+    $first = $service->generate($newsData);
+    $second = $service->generate($newsData);
+
+    expect($first['title'])->toBe('G1'); // round 0: gemini first
+    expect($second['title'])->toBe('Q1'); // round 1: groq first
 });
 
 test('news:generate command saves a new draft post and skips it on a second run', function () {
@@ -180,20 +253,11 @@ test('news:generate command saves a new draft post and skips it on a second run'
         'name' => 'Fake Tech Feed', 'url' => 'https://fake-feed.test/tech-rss',
         'type' => 'rss', 'category' => 'tech', 'is_active' => true,
     ]);
-    config(['services.anthropic.key' => 'test-key']);
+    config(['services.gemini.key' => 'test-gemini-key']);
 
     Http::fake([
         'fake-feed.test/*' => Http::response(sampleRssXml(), 200),
-        'api.anthropic.com/*' => Http::response([
-            'content' => [[
-                'type' => 'text',
-                'text' => json_encode([
-                    'title' => 'Judul Artikel Hasil Tulis Ulang AI',
-                    'content' => "## Pendahuluan\n\nIsi artikel hasil tulis ulang AI.",
-                    'excerpt' => 'Ringkasan singkat.',
-                ]),
-            ]],
-        ], 200),
+        'generativelanguage.googleapis.com/*' => Http::response(geminiArticleResponse('Judul Artikel Hasil Tulis Ulang AI'), 200),
     ]);
 
     $this->artisan('news:generate', ['--topic' => 'tech', '--limit' => 1])
@@ -228,14 +292,12 @@ test('GenerateNewsArticlesJob tolerates a single bad AI call without failing the
         'type' => 'rss', 'category' => 'tech', 'is_active' => true,
     ]);
 
-    // Simulate the AI request throwing a connection-level exception — this
-    // is caught inside ArticleGeneratorService itself, so the run as a
-    // whole should still finish successfully with 0 articles created.
-    config(['services.anthropic.key' => 'test-key']);
-    Http::fake([
-        'fake-feed.test/*' => Http::response(sampleRssXml(), 200),
-        'api.anthropic.com/*' => fn () => throw new ConnectionException('simulated network failure'),
-    ]);
+    // No AI provider configured at all — every provider fails inside
+    // ArticleGeneratorService itself, so the run as a whole should still
+    // finish successfully with 0 articles created.
+    config(['services.gemini.key' => null]);
+    config(['services.groq.key' => null]);
+    Http::fake(['fake-feed.test/*' => Http::response(sampleRssXml(), 200)]);
 
     (new GenerateNewsArticlesJob('tech', 1, 'manual'))->handle(
         app(NewsFetcherService::class),

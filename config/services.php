@@ -35,9 +35,31 @@ return [
         ],
     ],
 
-    'anthropic' => [
-        'key' => env('ANTHROPIC_API_KEY'),
-        'model' => env('ANTHROPIC_MODEL', 'claude-sonnet-5'),
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+        'model' => env('GEMINI_MODEL', 'gemini-2.5-flash'),
+    ],
+
+    'groq' => [
+        'key' => env('GROQ_API_KEY'),
+        'model' => env('GROQ_MODEL', 'llama-3.3-70b-versatile'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Auto-Blog AI Provider Order
+    |--------------------------------------------------------------------------
+    |
+    | ArticleGeneratorService tries these providers in order, falling back to
+    | the next one on rate-limit (429) or any other failure. "strategy":
+    | "fallback" always starts with the first entry; "round_robin" rotates
+    | which provider goes first on each call (still falls back through the
+    | rest) so load spreads evenly instead of always hammering the first one.
+    |
+    */
+    'ai_providers' => [
+        'order' => array_filter(array_map('trim', explode(',', env('AI_PROVIDER_ORDER', 'gemini,groq')))),
+        'strategy' => env('AI_PROVIDER_STRATEGY', 'fallback'),
     ],
 
 ];
