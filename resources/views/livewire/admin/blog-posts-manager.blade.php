@@ -257,6 +257,7 @@ new class extends Component {
                     <th class="py-3 px-4">Judul</th>
                     <th class="py-3 px-4 w-40">Kategori</th>
                     <th class="py-3 px-4 w-28">Status</th>
+                    <th class="py-3 px-4 w-32">Dibuat</th>
                     <th class="py-3 px-4 w-20 text-right">Views</th>
                     <th class="py-3 px-4 w-20 text-right">Likes</th>
                     <th class="py-3 px-4 w-36 text-right">Aksi</th>
@@ -288,6 +289,9 @@ new class extends Component {
                                 </button>
                             @endif
                         </td>
+                        <td class="py-3 px-4 text-on-surface-variant whitespace-nowrap" title="{{ $post->is_ai_generated ? 'Waktu artikel di-generate oleh AI' : 'Waktu draf dibuat' }}">
+                            {{ $post->created_at->format('d M Y, H:i') }}
+                        </td>
                         <td class="py-3 px-4 text-right font-mono text-on-surface-variant">{{ number_format($post->views_count) }}</td>
                         <td class="py-3 px-4 text-right font-mono text-on-surface-variant">{{ number_format($post->likes_count) }}</td>
                         <td class="py-3 px-4 text-right space-x-1">
@@ -297,7 +301,7 @@ new class extends Component {
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="py-8 text-center text-on-surface-variant">Belum ada artikel yang cocok dengan filter ini.</td>
+                        <td colspan="7" class="py-8 text-center text-on-surface-variant">Belum ada artikel yang cocok dengan filter ini.</td>
                     </tr>
                 @endforelse
             </tbody>
