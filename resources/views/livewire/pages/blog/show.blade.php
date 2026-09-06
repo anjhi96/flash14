@@ -195,9 +195,9 @@ new class extends Component {
             </div>
 
             <!-- Lead Generation CTA -->
-            <div class="bg-slate-900 rounded-2xl p-8 sm:p-10 border border-slate-800 text-center space-y-4 text-white my-10">
+            <div class="bg-inverse-surface rounded-2xl p-8 sm:p-10 border border-inverse-surface-border text-center space-y-4 text-on-inverse-surface my-10">
                 <h2 class="text-xl sm:text-2xl font-bold">Butuh Solusi Serupa untuk Bisnis Anda?</h2>
-                <p class="text-slate-300 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed">
+                <p class="text-inverse-surface-variant max-w-xl mx-auto text-xs sm:text-sm leading-relaxed">
                     Tim engineer FlashDev siap membantu merancang dan membangun sistem yang sesuai kebutuhan spesifik Anda.
                 </p>
                 <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-on-primary font-semibold text-sm transition-colors shadow-xs">

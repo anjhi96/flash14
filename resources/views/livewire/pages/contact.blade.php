@@ -121,7 +121,7 @@ new class extends Component {
             <div class="lg:col-span-7 bg-surface-container-lowest p-6 sm:p-8 rounded-xl border border-outline-variant">
                 @if ($submitted)
                     <div class="bg-state-success-container border border-transparent rounded-xl p-6 text-center space-y-2.5">
-                        <div class="w-10 h-10 rounded-full bg-state-success text-white flex items-center justify-center mx-auto">
+                        <div class="w-10 h-10 rounded-full bg-state-success text-state-on-success flex items-center justify-center mx-auto">
                             <span class="material-symbols-outlined text-[22px]">check</span>
                         </div>
                         <h3 class="text-base font-bold text-state-on-success-container">Pesan Berhasil Terkirim</h3>

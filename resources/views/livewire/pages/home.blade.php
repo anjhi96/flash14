@@ -212,9 +212,9 @@ new class extends Component {
     @if (($sections['cta'] ?? null)?->is_enabled ?? true)
     <section class="py-14 bg-surface-container-lowest">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-slate-900 rounded-2xl p-8 sm:p-12 border border-slate-800 text-center space-y-4 text-white">
+            <div class="bg-inverse-surface rounded-2xl p-8 sm:p-12 border border-inverse-surface-border text-center space-y-4 text-on-inverse-surface">
                 <h2 class="text-2xl sm:text-3xl font-bold">Siap Mengembangkan Proyek Digital Anda?</h2>
-                <p class="text-slate-300 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed">
+                <p class="text-inverse-surface-variant max-w-xl mx-auto text-xs sm:text-sm leading-relaxed">
                     Konsultasikan arsitektur sistem dan estimasi proyek Anda bersama tim engineer FlashDev.
                 </p>
                 <div class="pt-2">

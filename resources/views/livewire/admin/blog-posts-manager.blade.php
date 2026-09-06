@@ -358,7 +358,7 @@ new class extends Component {
                         <div class="flex flex-wrap gap-3 p-3 rounded-lg border border-outline bg-surface-container-lowest">
                             @foreach ($tags as $tag)
                                 <label class="flex items-center gap-1.5 cursor-pointer">
-                                    <input type="checkbox" wire:model="postTags" value="{{ $tag->id }}" class="rounded border-outline text-primary focus:ring-primary">
+                                    <x-checkbox-input wire:model="postTags" value="{{ $tag->id }}" />
                                     <span class="text-on-surface-variant">{{ $tag->name }}</span>
                                 </label>
                             @endforeach

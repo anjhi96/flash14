@@ -203,7 +203,7 @@ new class extends Component {
                         </div>
                     </div>
                     <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="checkbox" wire:model="sourceIsActive" class="rounded border-outline text-primary focus:ring-primary">
+                        <x-checkbox-input wire:model="sourceIsActive" />
                         <span class="font-semibold text-xs text-on-surface-variant">Status Aktif</span>
                     </label>
                     <div class="flex justify-end space-x-2 pt-3 border-t border-outline-variant">

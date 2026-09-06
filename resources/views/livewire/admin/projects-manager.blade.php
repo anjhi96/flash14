@@ -206,7 +206,7 @@ new class extends Component {
                         </div>
                         <div class="flex items-center pt-4">
                             <label class="flex items-center space-x-2 cursor-pointer">
-                                <input type="checkbox" wire:model="projectIsFeatured" class="rounded border-outline text-primary focus:ring-primary">
+                                <x-checkbox-input wire:model="projectIsFeatured" />
                                 <span class="font-semibold text-xs text-on-surface-variant">Featured di Home</span>
                             </label>
                         </div>
