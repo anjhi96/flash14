@@ -59,7 +59,7 @@ new class extends Component {
         $parent = Comment::findOrFail($this->replyingTo);
         $admin = Auth::user();
 
-        // Trusted source (logged-in admin) — approved immediately, unlike
+        // Trusted source (logged-in admin): approved immediately, unlike
         // public submissions which always land as 'pending' first.
         Comment::create([
             'post_id' => $parent->post_id,

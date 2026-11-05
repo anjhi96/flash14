@@ -273,10 +273,10 @@ new class extends Component {
                                     <x-badge variant="primary">AI</x-badge>
                                 @endif
                             </div>
-                            <div class="text-on-surface-variant">oleh {{ $post->author?->name ?? '—' }}</div>
+                            <div class="text-on-surface-variant">oleh {{ $post->author?->name ?? '-' }}</div>
                         </td>
                         <td class="py-3 px-4">
-                            <x-badge>{{ $post->category?->name ?? '—' }}</x-badge>
+                            <x-badge>{{ $post->category?->name ?? '-' }}</x-badge>
                         </td>
                         <td class="py-3 px-4">
                             @if ($post->status === 'scheduled')

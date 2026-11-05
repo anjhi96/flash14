@@ -19,13 +19,13 @@ class GenerateNewsArticles extends Command
     protected $signature = 'news:generate
         {--topic= : Batasi ke satu kategori sumber berita}
         {--limit=1 : Jumlah artikel maksimum yang diproses dalam satu run}
-        {--triggered-by=scheduler : scheduler|manual — cuma dipakai untuk pencatatan riwayat run}';
+        {--triggered-by=scheduler : scheduler|manual: cuma dipakai untuk pencatatan riwayat run}';
 
     protected $description = 'Ambil berita terbaru dari sumber aktif, tulis ulang jadi artikel original via AI, simpan sebagai draft.';
 
     /**
      * Runs fully synchronously (no queue) so it works on shared hosting
-     * without a persistent worker process — triggered either by the cron
+     * without a persistent worker process: triggered either by the cron
      * -> schedule:run -> scheduler path, or directly from the admin panel.
      */
     public function handle(NewsFetcherService $fetcher, ArticleGeneratorService $generator): int
@@ -114,7 +114,7 @@ class GenerateNewsArticles extends Command
 
     /**
      * Ensure the byline & category auto-generated articles are filed under
-     * actually exist — author_id/category_id are NOT NULL on posts.
+     * actually exist (author_id/category_id are NOT NULL on posts).
      *
      * @return array{0: TeamMember, 1: Category}
      */

@@ -59,7 +59,7 @@ Microservices memungkinkan setiap tim mengembangkan, menguji, dan men-deploy lay
 ### Keuntungan Utama
 
 - Skalabilitas granular per layanan, bukan seluruh aplikasi sekaligus
-- Isolasi kegagalan (*fault isolation*) — satu servis down tidak menjatuhkan semuanya
+- Isolasi kegagalan (*fault isolation*): satu servis down tidak menjatuhkan semuanya
 - Tim dapat bekerja paralel dengan batas tanggung jawab yang jelas
 
 ## Menyiapkan Environment dengan Docker
@@ -97,7 +97,7 @@ Gunakan REST atau message queue (Laravel Horizon + Redis) tergantung apakah komu
 
 ## Kesimpulan
 
-Microservices bukan solusi untuk semua kasus — untuk tim kecil atau produk tahap awal, monolitik yang terstruktur rapi seringkali lebih masuk akal. Pertimbangkan migrasi bertahap begitu batas skalabilitas mulai terasa.
+Microservices bukan solusi untuk semua kasus, untuk tim kecil atau produk tahap awal, monolitik yang terstruktur rapi seringkali lebih masuk akal. Pertimbangkan migrasi bertahap begitu batas skalabilitas mulai terasa.
 MD,
                 'cover_image' => 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&w=1200&q=80',
                 'status' => 'published',
@@ -143,7 +143,7 @@ Tailwind v4 memudahkan definisi token lewat `@theme`, sehingga satu sumber keben
 
 ## Kesimpulan
 
-Sistem desain yang matang lahir dari disiplin menjaga hierarki dan proporsi — bukan dari jumlah efek visual yang ditumpuk.
+Sistem desain yang matang lahir dari disiplin menjaga hierarki dan proporsi, bukan dari jumlah efek visual yang ditumpuk.
 MD,
                 'cover_image' => 'https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=1200&q=80',
                 'status' => 'published',
@@ -222,7 +222,7 @@ composer audit
 php artisan config:cache
 ```
 
-> Keamanan bukan fitur yang ditambahkan di akhir proyek — ia harus menjadi bagian dari setiap tahap pengembangan.
+> Keamanan bukan fitur yang ditambahkan di akhir proyek: ia harus menjadi bagian dari setiap tahap pengembangan.
 
 ## Kesimpulan
 

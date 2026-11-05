@@ -8,7 +8,7 @@ use RuntimeException;
 /**
  * Contract for a rewrite-news-into-an-article AI backend. Adding a new
  * provider (e.g. going back to Claude, or trying another model) only
- * requires a new class implementing this interface — no changes needed to
+ * requires a new class implementing this interface: no changes needed to
  * ArticleGeneratorService's orchestration/fallback logic.
  */
 interface AiProviderInterface

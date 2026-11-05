@@ -14,15 +14,15 @@ class ArticleGeneratorService
     private const ROUND_ROBIN_CACHE_KEY = 'ai-provider-round-robin-index';
 
     /**
-     * @param  array<string, AiProviderInterface>  $providers  Keyed by provider name — must match
-     *                                                         the entries in config('services.ai_providers.order').
+     * @param  array<string, AiProviderInterface>  $providers  Keyed by provider name (must match
+     *                                                         the entries in config('services.ai_providers.order')).
      */
     public function __construct(private readonly array $providers) {}
 
     /**
      * Rewrite raw news data into an original article, trying each configured
      * AI provider in turn until one succeeds. A single provider being
-     * rate-limited or failing does not fail the whole call — it just moves
+     * rate-limited or failing does not fail the whole call: it just moves
      * on to the next one.
      *
      * @param  array{title: string, summary: string, link: string, source_name: string}  $newsData
@@ -66,7 +66,7 @@ class ArticleGeneratorService
      * is just config('services.ai_providers.order') as-is. With
      * "round_robin", the starting provider rotates on every call (persisted
      * via cache) so load spreads evenly across providers instead of always
-     * hitting the first one until it's rate-limited — the remaining
+     * hitting the first one until it's rate-limited; the remaining
      * providers still serve as a fallback chain after the rotated one.
      *
      * @return array<int, string>

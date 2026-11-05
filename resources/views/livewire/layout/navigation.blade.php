@@ -24,7 +24,7 @@ new class extends Component
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home') }}" wire:navigate class="flex items-center space-x-2.5 group">
-                        <img src="{{ asset('flash.png') }}" alt="FlashDev Logo" class="h-8 w-auto transition-transform duration-200 group-hover:scale-105">
+                        <img src="{{ asset('flash.png') }}" alt="FlashDev Logo" width="32" height="32" class="h-8 w-auto transition-transform duration-200 group-hover:scale-105">
                         <span class="text-lg font-bold text-on-surface tracking-tight">FLASH<span class="text-primary">DEV</span></span>
                     </a>
                 </div>
@@ -67,7 +67,7 @@ new class extends Component
 
             <!-- Right Topbar Items (Theme Switcher & Settings) -->
             <div class="flex items-center space-x-2">
-                <!-- Theme Toggle Button -->
+                <!-- Theme Toggle Button (44px min tap target per R-03) -->
                 <div x-data="{
                     darkMode: localStorage.getItem('flashdev-theme') === 'dark' || (!localStorage.getItem('flashdev-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches),
                     toggle() {
@@ -76,9 +76,9 @@ new class extends Component
                         localStorage.setItem('flashdev-theme', this.darkMode ? 'dark' : 'light');
                     }
                 }">
-                    <button @click="toggle()" type="button" class="w-9 h-9 flex items-center justify-center rounded-lg border border-outline-variant bg-surface-container text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors cursor-pointer" title="Toggle Theme">
+                    <button @click="toggle()" type="button" aria-label="Ganti mode tampilan" class="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg border border-outline-variant bg-surface-container text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors cursor-pointer" title="Toggle Theme">
                         <span class="sr-only">Toggle theme</span>
-                        <span class="material-symbols-outlined text-[20px]" x-text="darkMode ? 'light_mode' : 'dark_mode'"></span>
+                        <span class="material-symbols-outlined text-[20px]" aria-hidden="true" x-text="darkMode ? 'light_mode' : 'dark_mode'"></span>
                     </button>
                 </div>
 
@@ -116,10 +116,10 @@ new class extends Component
                     </div>
                 @endauth
 
-                <!-- Hamburger Mobile Toggle -->
+                <!-- Hamburger Mobile Toggle (44px min tap target per R-03) -->
                 <div class="flex items-center sm:hidden">
-                    <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container focus:outline-none transition duration-150 cursor-pointer">
-                        <span class="material-symbols-outlined text-[24px]" x-text="open ? 'close' : 'menu'"></span>
+                    <button @click="open = ! open" :aria-expanded="open.toString()" aria-label="Buka menu navigasi" class="inline-flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container focus:outline-none transition duration-150 cursor-pointer">
+                        <span class="material-symbols-outlined text-[24px]" aria-hidden="true" x-text="open ? 'close' : 'menu'"></span>
                     </button>
                 </div>
             </div>

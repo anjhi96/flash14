@@ -8,4 +8,6 @@ test('public pages are reachable', function (string $uri) {
     '/portfolio',
     '/tentang',
     '/kontak',
+    '/kebijakan-privasi',
+    '/syarat-ketentuan',
 ]);

@@ -173,23 +173,24 @@ new class extends Component {
 
                 <div class="flex items-center gap-2">
                     @php $shareUrl = route('blog.show', $post->slug); @endphp
-                    <a href="https://wa.me/?text={{ urlencode($post->title.' '.$shareUrl) }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-surface-container-lowest border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors" title="Bagikan ke WhatsApp">
-                        <span class="material-symbols-outlined text-[18px]">chat</span>
+                    <a href="https://wa.me/?text={{ urlencode($post->title.' '.$shareUrl) }}" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke WhatsApp" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-surface-container-lowest border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors" title="Bagikan ke WhatsApp">
+                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">chat</span>
                     </a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode($shareUrl) }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-surface-container-lowest border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors text-xs font-bold" title="Bagikan ke LinkedIn">
-                        in
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode($shareUrl) }}" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke LinkedIn" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-surface-container-lowest border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors text-xs font-bold" title="Bagikan ke LinkedIn">
+                        <span aria-hidden="true">in</span>
                     </a>
-                    <a href="https://twitter.com/intent/tweet?text={{ urlencode($post->title) }}&url={{ urlencode($shareUrl) }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-surface-container-lowest border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors text-xs font-bold" title="Bagikan ke X">
-                        X
+                    <a href="https://twitter.com/intent/tweet?text={{ urlencode($post->title) }}&url={{ urlencode($shareUrl) }}" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke X" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-surface-container-lowest border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors text-xs font-bold" title="Bagikan ke X">
+                        <span aria-hidden="true">X</span>
                     </a>
                     <button
                         type="button"
                         x-data="{ copied: false }"
                         @click="navigator.clipboard.writeText('{{ $shareUrl }}'); copied = true; setTimeout(() => copied = false, 2000)"
-                        class="w-9 h-9 rounded-lg bg-surface-container-lowest border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors cursor-pointer"
+                        aria-label="Salin tautan artikel"
+                        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-surface-container-lowest border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors cursor-pointer"
                         title="Salin Link"
                     >
-                        <span class="material-symbols-outlined text-[18px]" x-text="copied ? 'check' : 'link'"></span>
+                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true" x-text="copied ? 'check' : 'link'"></span>
                     </button>
                 </div>
             </div>
@@ -200,7 +201,7 @@ new class extends Component {
                 <p class="text-inverse-surface-variant max-w-xl mx-auto text-xs sm:text-sm leading-relaxed">
                     Tim engineer FlashDev siap membantu merancang dan membangun sistem yang sesuai kebutuhan spesifik Anda.
                 </p>
-                <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-on-primary font-semibold text-sm transition-colors shadow-xs">
+                <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-2 min-h-[44px] px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-on-primary font-semibold text-sm transition-colors shadow-xs">
                     <span>Konsultasikan Proyek Anda</span>
                     <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
                 </a>

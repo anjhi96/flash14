@@ -6,7 +6,7 @@ use RuntimeException;
 
 /**
  * Thrown by an AiProviderInterface implementation when the provider returns
- * a rate-limit response (HTTP 429) — the orchestrator (ArticleGeneratorService)
+ * a rate-limit response (HTTP 429). The orchestrator (ArticleGeneratorService)
  * catches this specifically to move on to the next provider instead of
  * treating it as a hard failure.
  */

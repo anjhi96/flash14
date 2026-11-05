@@ -32,7 +32,7 @@ new class extends Component {
     <!-- Services Detailed List -->
     <section class="py-14 border-b border-outline-variant">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-            @foreach ($services as $index => $service)
+            @forelse ($services as $index => $service)
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center bg-surface-container-lowest p-6 sm:p-8 rounded-xl border border-outline-variant hover:border-outline transition-all">
                     <div class="lg:col-span-7 space-y-3">
                         <div class="text-xs font-mono font-bold text-primary">0{{ $index + 1 }}</div>
@@ -46,7 +46,7 @@ new class extends Component {
                             </div>
                         @endif
                         <div class="pt-2">
-                            <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline">
+                            <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline min-h-[36px]">
                                 <span>Konsultasikan Kebutuhan Ini</span>
                                 <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
                             </a>
@@ -56,21 +56,25 @@ new class extends Component {
                         <h3 class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Cakupan Layanan:</h3>
                         <ul class="space-y-2 text-xs text-on-surface-variant">
                             <li class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-[16px] text-state-success">check_circle</span>
+                                <span class="material-symbols-outlined text-[16px] text-state-success" aria-hidden="true">check_circle</span>
                                 <span>Arsitektur modular, aman, & responsif mobile</span>
                             </li>
                             <li class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-[16px] text-state-success">check_circle</span>
+                                <span class="material-symbols-outlined text-[16px] text-state-success" aria-hidden="true">check_circle</span>
                                 <span>Optimasi kinerja basis data & kecepatan muat sistem</span>
                             </li>
                             <li class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-[16px] text-state-success">check_circle</span>
+                                <span class="material-symbols-outlined text-[16px] text-state-success" aria-hidden="true">check_circle</span>
                                 <span>Dokumentasi teknis & garansi pemeliharaan</span>
                             </li>
                         </ul>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="text-center py-12 text-on-surface-variant text-xs">
+                    Belum ada layanan yang dipublikasikan saat ini.
+                </div>
+            @endforelse
         </div>
     </section>
 
@@ -82,7 +86,7 @@ new class extends Component {
                 Tim engineer kami siap menyusun cetak biru (*blueprint*) dan estimasi teknis yang disesuaikan dengan arsitektur perusahaan Anda.
             </p>
             <div class="pt-2">
-                <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-on-primary font-semibold text-sm transition-colors shadow-xs">
+                <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-2 min-h-[44px] px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-on-primary font-semibold text-sm transition-colors shadow-xs">
                     <span>Mulai Diskusi Teknis</span>
                     <span class="material-symbols-outlined text-[18px]">chat</span>
                 </a>

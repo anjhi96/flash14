@@ -92,7 +92,7 @@ new class extends Component {
             <x-badge variant="primary">Blog & Tech Insights</x-badge>
             <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-on-surface">Wawasan Teknis dari Tim FlashDev</h1>
             <p class="text-sm text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-                Catatan arsitektur, design system, keamanan aplikasi, dan studi kasus proyek nyata — ditulis oleh engineer dan desainer yang mengerjakannya langsung.
+                Catatan arsitektur, design system, keamanan aplikasi, dan studi kasus proyek nyata, ditulis oleh engineer dan desainer yang mengerjakannya langsung.
             </p>
         </div>
     </section>

@@ -148,7 +148,7 @@ test('ArticleGeneratorService uses the first configured provider (Gemini) when i
 
     expect($result)->not->toBeNull();
     expect($result['title'])->toBe('Judul Artikel Hasil Gemini');
-    Http::assertSentCount(1); // Groq never called — Gemini already succeeded.
+    Http::assertSentCount(1); // Groq never called: Gemini already succeeded.
 });
 
 test('ArticleGeneratorService falls back to Groq when Gemini is rate-limited', function () {
@@ -276,7 +276,7 @@ test('news:generate command saves a new draft post and skips it on a second run'
     expect($run->status)->toBe('success');
     expect($run->articles_created)->toBe(1);
 
-    // Second run sees the same feed item, already imported — must not duplicate it.
+    // Second run sees the same feed item, already imported: must not duplicate it.
     $this->artisan('news:generate', ['--topic' => 'tech', '--limit' => 1])
         ->assertSuccessful();
 
@@ -290,7 +290,7 @@ test('news:generate tolerates a single bad AI call without failing the whole run
         'type' => 'rss', 'category' => 'tech', 'is_active' => true,
     ]);
 
-    // No AI provider configured at all — every provider fails inside
+    // No AI provider configured at all: every provider fails inside
     // ArticleGeneratorService itself, so the run as a whole should still
     // finish successfully with 0 articles created.
     config(['services.gemini.key' => null]);
@@ -369,7 +369,7 @@ test('admin can run a manual generation directly (no queue) from the auto-blog p
         ->assertSet('resultVariant', 'success')
         ->assertSet('resultMessage', fn ($message) => str_contains($message, 'artikel baru dibuat'));
 
-    // Ran synchronously, in-process — no queue involved, result is already final.
+    // Ran synchronously, in-process: no queue involved, result is already final.
     $run = NewsGenerationRun::first();
     expect($run->triggered_by)->toBe('manual');
     expect($run->status)->toBe('success');

@@ -4,21 +4,21 @@
             <!-- Brand Info -->
             <div class="space-y-3.5 md:col-span-1">
                 <div class="flex items-center space-x-2">
-                    <img src="{{ asset('flash.png') }}" alt="FlashDev Logo" class="h-8 w-auto">
+                    <img src="{{ asset('flash.png') }}" alt="FlashDev Logo" width="32" height="32" class="h-8 w-auto">
                     <span class="text-lg font-bold tracking-tight text-on-surface">FLASH<span class="text-primary">DEV</span></span>
                 </div>
                 <p class="text-xs text-on-surface-variant leading-relaxed">
                     Solusi rekayasa perangkat lunak, sistem web custom, dan platform digital berkinerja tinggi untuk akselerasi bisnis Anda.
                 </p>
                 <div class="flex space-x-2 pt-1">
-                    <a href="#" class="w-8 h-8 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary/40 flex items-center justify-center transition-colors">
-                        <span class="text-xs font-bold">X</span>
+                    <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="FlashDev di X" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary/40 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-bold" aria-hidden="true">X</span>
                     </a>
-                    <a href="#" class="w-8 h-8 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary/40 flex items-center justify-center transition-colors">
-                        <span class="text-xs font-bold">in</span>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="FlashDev di LinkedIn" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary/40 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-bold" aria-hidden="true">in</span>
                     </a>
-                    <a href="#" class="w-8 h-8 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary/40 flex items-center justify-center transition-colors">
-                        <span class="text-xs font-bold">IG</span>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="FlashDev di Instagram" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary/40 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-bold" aria-hidden="true">IG</span>
                     </a>
                 </div>
             </div>
@@ -76,11 +76,11 @@
 
         <div class="border-t border-outline-variant mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-on-surface-variant">
             <p>&copy; {{ date('Y') }} FlashDev. All rights reserved.</p>
-            <div class="flex space-x-5 mt-3 sm:mt-0">
-                <a href="#" class="hover:text-on-surface transition-colors">Kebijakan Privasi</a>
-                <a href="#" class="hover:text-on-surface transition-colors">Syarat & Ketentuan</a>
+            <div class="flex flex-wrap items-center gap-4 sm:gap-6 mt-3 sm:mt-0">
+                <a href="{{ route('privacy') }}" wire:navigate class="hover:text-on-surface py-2 transition-colors">Kebijakan Privasi</a>
+                <a href="{{ route('terms') }}" wire:navigate class="hover:text-on-surface py-2 transition-colors">Syarat & Ketentuan</a>
                 @guest
-                    <a href="{{ route('login') }}" class="hover:text-primary transition-colors">Admin Login</a>
+                    <a href="{{ route('login') }}" wire:navigate class="hover:text-primary py-2 transition-colors">Admin Login</a>
                 @endguest
             </div>
         </div>

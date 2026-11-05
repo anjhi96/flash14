@@ -66,7 +66,7 @@ class NewsFetcherService
 
     /**
      * Fetch a single feed URL fresh (no cache) for the admin "Test Fetch"
-     * preview — works even for a URL not yet saved as a NewsSource.
+     * preview: works even for a URL not yet saved as a NewsSource.
      *
      * @return array<int, array{title: string, summary: string, link: string, source_name: string, published_at: Carbon}>
      */

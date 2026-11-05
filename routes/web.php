@@ -10,6 +10,8 @@ Volt::route('/tentang', 'pages.about')->name('about');
 Volt::route('/kontak', 'pages.contact')->name('contact');
 Volt::route('/blog', 'pages.blog.index')->name('blog.index');
 Volt::route('/blog/{slug}', 'pages.blog.show')->name('blog.show');
+Volt::route('/kebijakan-privasi', 'pages.privacy')->name('privacy');
+Volt::route('/syarat-ketentuan', 'pages.terms')->name('terms');
 
 Route::get('dashboard', function () {
     if (auth()->user()?->role === 'admin') {

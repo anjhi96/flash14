@@ -85,7 +85,7 @@ new class extends Component {
     }
 
     /**
-     * Fetch a URL fresh (bypasses cache) and preview the latest items —
+     * Fetch a URL fresh (bypasses cache) and preview the latest items:
      * nothing is persisted, this is purely a validity/preview check.
      */
     public function testFetch(string $url, string $name): void
@@ -141,7 +141,7 @@ new class extends Component {
                             @if ($source->category)
                                 <x-badge>{{ $source->category }}</x-badge>
                             @else
-                                <span class="text-on-surface-variant">—</span>
+                                <span class="text-on-surface-variant">-</span>
                             @endif
                         </td>
                         <td class="py-3 px-4">

@@ -59,10 +59,10 @@
             Deliberately NOT using Flux's own `flux.appearance` storage key /
             @fluxAppearance here: flux.js (loaded below via @fluxScripts) has
             its own internal Livewire-navigate hook that unconditionally
-            resets appearance to "system" on every wire:navigate — it's meant
+            resets appearance to "system" on every wire:navigate (it's meant
             to be driven through Flux's own component API, which this app
             doesn't use anywhere, so it just fights any manual write to that
-            key. Using a private key Flux never touches avoids that entirely.
+            key). Using a private key Flux never touches avoids that entirely.
         -->
         <script>
             function flashdevApplyTheme() {

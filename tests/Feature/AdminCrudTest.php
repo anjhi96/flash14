@@ -13,8 +13,6 @@ beforeEach(function () {
     $this->actingAs($this->admin);
 });
 
-// --- Services ---
-
 test('admin can create, toggle, and delete a service', function () {
     Volt::test('admin.services-manager')
         ->set('serviceTitle', 'Pengembangan Aplikasi Mobile')
@@ -35,8 +33,6 @@ test('admin can create, toggle, and delete a service', function () {
     Volt::test('admin.services-manager')->call('deleteService', $service->id);
     expect(Service::find($service->id))->toBeNull();
 });
-
-// --- Projects ---
 
 test('admin can create, feature, and delete a project', function () {
     Volt::test('admin.projects-manager')
@@ -59,8 +55,6 @@ test('admin can create, feature, and delete a project', function () {
     expect(Project::find($project->id))->toBeNull();
 });
 
-// --- Team ---
-
 test('admin can create and delete a team member', function () {
     Volt::test('admin.team-manager')
         ->set('teamName', 'Siti Aminah')
@@ -75,8 +69,6 @@ test('admin can create and delete a team member', function () {
     Volt::test('admin.team-manager')->call('deleteTeamMember', $member->id);
     expect(TeamMember::find($member->id))->toBeNull();
 });
-
-// --- Messages ---
 
 test('admin can view, toggle read state, and delete a contact message', function () {
     $message = ContactMessage::create([
@@ -98,8 +90,6 @@ test('admin can view, toggle read state, and delete a contact message', function
     Volt::test('admin.messages-inbox')->call('deleteMessage', $message->id);
     expect(ContactMessage::find($message->id))->toBeNull();
 });
-
-// --- Page Sections ---
 
 test('admin can toggle a page section and update the tech stack list', function () {
     $section = PageSection::create([

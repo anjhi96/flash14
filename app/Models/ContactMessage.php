@@ -32,8 +32,8 @@ class ContactMessage extends Model
      * Order newest first.
      *
      * Named `recent` rather than `latest` because Eloquent's query builder
-     * already defines a native `latest()` method — a local scope with that
-     * exact name would never be reached (PHP resolves the real method
+     * already defines a native `latest()` method (a local scope with that
+     * exact name would never be reached: PHP resolves the real method
      * before falling back to the scope-dispatch magic method).
      */
     public function scopeRecent(Builder $query): Builder

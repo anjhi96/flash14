@@ -45,7 +45,7 @@ new class extends Component {
             'message.max' => 'Rincian kebutuhan maksimal :max karakter.',
         ]);
 
-        // Strip any HTML/script tags before persisting — defense in depth on
+        // Strip any HTML/script tags before persisting: defense in depth on
         // top of Blade's automatic output escaping.
         $sanitized = [
             'name' => trim(strip_tags($validated['name'])),

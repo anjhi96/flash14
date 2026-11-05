@@ -7,7 +7,7 @@
  * One semantic name per role, defined once with light values under @theme,
  * then overridden for dark mode below. Utilities (bg-surface, text-on-surface,
  * border-outline, ...) reference var(--color-*), so the .dark override cascades
- * to every element automatically — no `dark:` prefix needed for surface/text/
+ * to every element automatically: no `dark:` prefix needed for surface/text/
  * border colors.
  *
  * Shape scale: rounded-md (badges/chips/small controls) < rounded-lg
@@ -64,7 +64,7 @@
   --color-state-on-info-container: #1E3A8A;
 
   /*
-   * Inverse surface — deliberately NOT redefined in the .dark block below.
+   * Inverse surface: deliberately NOT redefined in the .dark block below.
    * For the rare high-contrast accent band (e.g. a closing CTA panel) that's
    * meant to read as a fixed dark slab regardless of the ambient theme,
    * instead of a raw bg-slate-900 that has no relation to the token system.
@@ -123,6 +123,35 @@
   --color-state-on-info-container: #BFDBFE;
 }
 
+/* Base interactive semantics & cursor indicators (R-39) */
+@layer base {
+  a[href],
+  button,
+  summary,
+  select,
+  label[for],
+  input[type="checkbox"],
+  input[type="radio"],
+  [role="button"],
+  [role="tab"],
+  [role="switch"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  input:disabled,
+  select:disabled,
+  textarea:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
 /* Material Symbols Styling */
 .material-symbols-outlined {
   font-variation-settings:
@@ -164,6 +193,16 @@
 
 .animate-like-pulse {
   animation: like-pulse 0.3s ease;
+}
+
+/* Reduced motion preference (R-39) */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /*

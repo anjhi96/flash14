@@ -3,6 +3,8 @@
 use App\Models\Service;
 use App\Models\Project;
 use App\Models\PageSection;
+use App\Models\TeamMember;
+use App\Models\Post;
 use Livewire\Volt\Component;
 
 new class extends Component {
@@ -10,9 +12,15 @@ new class extends Component {
     {
         $sections = PageSection::forPage('home');
         return [
-            'services'        => Service::where('is_active', true)->orderBy('order')->get(),
+            'services'         => Service::where('is_active', true)->orderBy('order')->get(),
             'featuredProjects' => Project::where('is_featured', true)->orderBy('order')->take(3)->get(),
-            'sections'        => $sections,
+            'sections'         => $sections,
+            'metrics'          => [
+                'projects' => Project::count(),
+                'services' => Service::where('is_active', true)->count(),
+                'team'     => TeamMember::count(),
+                'articles' => Post::published()->count(),
+            ],
         ];
     }
 }; ?>
@@ -34,10 +42,10 @@ new class extends Component {
                     Kami membantu organisasi dan pelaku usaha membangun aplikasi web kustom, sistem automasi, serta arsitektur software yang cepat, tangguh, dan terukur.
                 </p>
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-                    <a href="{{ route('contact') }}" wire:navigate class="w-full sm:w-auto px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-on-primary font-semibold text-sm shadow-xs transition-colors text-center">
+                    <a href="{{ route('contact') }}" wire:navigate class="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-on-primary font-semibold text-sm shadow-xs transition-colors text-center">
                         Konsultasikan Kebutuhan
                     </a>
-                    <a href="{{ route('portfolio') }}" wire:navigate class="w-full sm:w-auto px-6 py-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-semibold text-sm border border-outline shadow-2xs transition-colors text-center">
+                    <a href="{{ route('portfolio') }}" wire:navigate class="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center px-6 py-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-semibold text-sm border border-outline shadow-2xs transition-colors text-center">
                         Eksplorasi Portofolio
                     </a>
                 </div>
@@ -46,26 +54,26 @@ new class extends Component {
     </section>
     @endif
 
-    <!-- Metrics Banner -->
+    <!-- Metrics Banner (Real, verifiable metrics from database per R-17 & C-5) -->
     @if (($sections['metrics'] ?? null)?->is_enabled ?? true)
     <section class="py-8 bg-surface-container-low border-b border-outline-variant">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                 <div class="space-y-1">
-                    <div class="text-2xl sm:text-3xl font-bold text-primary">50+</div>
-                    <div class="text-xs text-on-surface-variant font-medium">Proyek Sukses Terkirim</div>
+                    <div class="text-2xl sm:text-3xl font-bold text-primary">{{ $metrics['projects'] }}</div>
+                    <div class="text-xs text-on-surface-variant font-medium">Portofolio Proyek</div>
                 </div>
                 <div class="space-y-1">
-                    <div class="text-2xl sm:text-3xl font-bold text-on-surface">99.9%</div>
-                    <div class="text-xs text-on-surface-variant font-medium">Uptime & Reliability</div>
+                    <div class="text-2xl sm:text-3xl font-bold text-on-surface">{{ $metrics['services'] }}</div>
+                    <div class="text-xs text-on-surface-variant font-medium">Solusi Spesialis</div>
                 </div>
                 <div class="space-y-1">
-                    <div class="text-2xl sm:text-3xl font-bold text-primary">100%</div>
-                    <div class="text-xs text-on-surface-variant font-medium">Quality Assurance</div>
+                    <div class="text-2xl sm:text-3xl font-bold text-primary">{{ $metrics['team'] }}</div>
+                    <div class="text-xs text-on-surface-variant font-medium">Engineer & Konsultan</div>
                 </div>
                 <div class="space-y-1">
-                    <div class="text-2xl sm:text-3xl font-bold text-on-surface">24/7</div>
-                    <div class="text-xs text-on-surface-variant font-medium">Dukungan Pemeliharaan</div>
+                    <div class="text-2xl sm:text-3xl font-bold text-on-surface">{{ $metrics['articles'] }}</div>
+                    <div class="text-xs text-on-surface-variant font-medium">Wawasan Teknis</div>
                 </div>
             </div>
         </div>
@@ -99,7 +107,7 @@ new class extends Component {
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                @foreach ($services as $service)
+                @forelse ($services as $service)
                     <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:border-outline transition-all flex flex-col justify-between space-y-4">
                         <div class="space-y-2">
                             <h3 class="text-base font-bold text-on-surface">{{ $service->title }}</h3>
@@ -115,7 +123,11 @@ new class extends Component {
                             </a>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-span-full text-center py-8 text-on-surface-variant text-xs">
+                        Layanan sedang dalam proses pembaruan data.
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -137,7 +149,7 @@ new class extends Component {
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                @foreach ($featuredProjects as $project)
+                @forelse ($featuredProjects as $project)
                     <div class="bg-surface rounded-xl overflow-hidden border border-outline-variant flex flex-col justify-between hover:border-outline transition-all">
                         <div>
                             <div class="relative overflow-hidden aspect-video bg-surface-container">
@@ -167,7 +179,11 @@ new class extends Component {
                             </div>
                         @endif
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-span-full text-center py-8 text-on-surface-variant text-xs">
+                        Belum ada proyek unggulan yang ditampilkan.
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -218,7 +234,7 @@ new class extends Component {
                     Konsultasikan arsitektur sistem dan estimasi proyek Anda bersama tim engineer FlashDev.
                 </p>
                 <div class="pt-2">
-                    <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-on-primary font-semibold text-sm transition-colors shadow-xs">
+                    <a href="{{ route('contact') }}" wire:navigate class="inline-flex items-center gap-2 min-h-[44px] px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-on-primary font-semibold text-sm transition-colors shadow-xs">
                         <span>Mulai Konsultasi Gratis</span>
                         <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
                     </a>

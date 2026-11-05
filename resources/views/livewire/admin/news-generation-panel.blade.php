@@ -7,7 +7,7 @@ use Livewire\Volt\Component;
 new class extends Component {
     /**
      * Keep the manual button fast & safe from web-server/HTTP timeouts on
-     * shared hosting — the rest of what's due gets picked up by the next
+     * shared hosting: the rest of what's due gets picked up by the next
      * scheduled cron run instead of all being crammed into one click.
      */
     private const MANUAL_RUN_LIMIT = 5;
@@ -50,7 +50,7 @@ new class extends Component {
         return [
             'runs' => $runs,
             // A scheduled run could in theory still be mid-flight if this
-            // page is viewed at that exact moment — poll so it isn't stuck
+            // page is viewed at that exact moment: poll so it isn't stuck
             // showing "running" until the admin manually reloads.
             'hasRunning' => $runs->contains('status', 'running'),
         ];
@@ -106,7 +106,7 @@ new class extends Component {
                                 </x-badge>
                             </td>
                             <td class="py-3 px-4 text-on-surface-variant max-w-sm truncate" title="{{ $run->error_message }}">
-                                {{ $run->error_message ?: '—' }}
+                                {{ $run->error_message ?: '-' }}
                             </td>
                         </tr>
                     @empty

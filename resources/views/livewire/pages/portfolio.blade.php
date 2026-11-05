@@ -44,12 +44,13 @@ new class extends Component {
     <!-- Category Filter & Grid -->
     <section class="py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-            <!-- Filter Chips -->
+            <!-- Filter Chips (44px min tap target per R-03) -->
             <div class="flex flex-wrap items-center justify-center gap-2">
                 @foreach ($categories as $cat)
                     <button
                         wire:click="selectCategory('{{ $cat }}')"
-                        class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer {{ $selectedCategory === $cat ? 'bg-primary text-on-primary' : 'bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container border border-outline' }}"
+                        type="button"
+                        class="min-h-[44px] inline-flex items-center justify-center px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer {{ $selectedCategory === $cat ? 'bg-primary text-on-primary shadow-xs' : 'bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container border border-outline' }}"
                     >
                         {{ $cat }}
                     </button>

@@ -130,7 +130,7 @@ new class extends Component {
                         <td class="py-3 px-4 font-mono font-semibold text-on-surface-variant">{{ $s->order }}</td>
                         <td class="py-3 px-4 font-bold text-on-surface">{{ $s->title }}</td>
                         <td class="py-3 px-4 text-on-surface-variant max-w-sm truncate">{{ $s->short_description }}</td>
-                        <td class="py-3 px-4 font-mono font-semibold text-primary whitespace-nowrap">{{ $s->starting_price ?: '—' }}</td>
+                        <td class="py-3 px-4 font-mono font-semibold text-primary whitespace-nowrap">{{ $s->starting_price ?: '-' }}</td>
                         <td class="py-3 px-4">
                             <button type="button" wire:click="toggleServiceActive({{ $s->id }})" class="cursor-pointer">
                                 <x-badge :variant="$s->is_active ? 'success' : 'neutral'">
